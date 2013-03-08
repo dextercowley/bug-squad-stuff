@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--
+		$Id: project.xml 461 2010-10-30 15:58:47Z louis $
+	-->
+<form>
+	<fieldset>
+		<field name="project_id"  type="text"
+			default="0" 
+			description ="JGLOBAL_FIELD_ID_DESC"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			readonly="true"
+			size="10"
+		/>
+
+		<field name="asset_id" type="hidden"
+			filter="unset"
+		/>
+
+		<field name="title" type="text"
+			description="JFIELD_TITLE_DESC"
+			label="JGLOBAL_TITLE"
+			required="true"
+			size="30"
+		/>
+
+		<field name="alias" type="text"
+			description="JFIELD_ALIAS_DESC"
+			label="JFIELD_ALIAS_LABEL"
+			size="45"
+		/>
+
+		<field name="state" type="list"
+			default="1"
+			description="JFIELD_PUBLISHED_DESC"
+			filter="integer"
+			label="JGLOBAL_STATE"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+
+		<field name="access" type="accesslevel"
+			description="JFIELD_ACCESS_DESC"
+			filter="integer"
+			label="JFIELD_ACCESS_LABEL"
+		/>
+
+		<field name="summary" type="textarea"
+			cols="30"
+			description="COM_CODE_FIELD_BRANCH_SUMMARY_DESC"
+			label="COM_CODE_FIELD_BRANCH_SUMMARY_LABEL"
+			required="true"
+			rows="3"
+		/>
+
+		<field name="description" type="editor"
+			buttons="true"
+			description="COM_CODE_FIELD_BRANCH_DESCRIPTION_DESC"
+			label="COM_CODE_FIELD_BRANCH_DESCRIPTION_LABEL"
+		/>
+
+		<field name="created_date" type="calendar"
+			description="COM_CODE_FIELD_CREATED_DESC"
+			filter="user_utc"
+			format="%Y-%m-%d %H:%M:%S"
+			label="COM_CODE_FIELD_CREATED_LABEL"
+			size="20"
+		/>
+
+		<field name="created_by" type="user"
+			label="COM_CODE_FIELD_CREATED_BY_LABEL"
+			filter="integer"
+			description="COM_CODE_FIELD_CREATED_BY_DESC"
+		/>
+
+		<field name="modified_date" type="calendar"
+			class="readonly"
+			description="COM_CODE_FIELD_MODIFIED_DESC"
+			filter="user_utc"
+			format="%Y-%m-%d %H:%M:%S"
+			label="COM_CODE_FIELD_MODIFIED_LABEL"
+			readonly="true"
+			size="20"
+		/>
+
+		<field name="modified_by" type="user"
+			label="COM_CODE_FIELD_CREATED_BY_LABEL"
+			filter="integer"
+			description="COM_CODE_FIELD_CREATED_BY_DESC"
+			readonly="true"
+		/>
+
+		<field name="rules" type="rules"
+			component="com_code"
+			description="COM_CODE_FIELD_RULES_DESC"
+			filter="rules"
+			label="COM_CODE_FIELD_RULES_LABEL"
+			section="branch"
+		/>
+
+		<field name="jc_project_id"  type="text"
+			description ="COM_CODE_FIELD_JC_PROJECT_DESC"
+			filter="integer"
+			label="COM_CODE_FIELD_JC_PROJECT_LABEL"
+			size="10"
+		/>
+	</fieldset>
+</form>
