@@ -1,9 +1,21 @@
-CREATE TABLE `jos_code_activity_types` (
+CREATE TABLE IF NOT EXISTS `jos_code_activity_types` (
   `activity_type` tinyint(4) default NULL COMMENT '1-create; 2-comment; 3-change; 4-test; 5-patch; 6-pull in comment; 7-pull in description',
-  `activity_title` varchar(128) default NULL COMMENT 'Activity title',
+  `activity_title` varchar(255) default NULL COMMENT 'Title for each type',
+  `activity_group` varchar(255) default NULL COMMENT 'Tracker, Test, Code',
+  `activity_description` varchar(500) default NULL COMMENT 'Activity description',
   `activity_points` tinyint(4) default NULL COMMENT 'Weighting for each type of activity',
   PRIMARY KEY  (`activity_type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `jos_code_activity_types` 
+(`activity_type`, `activity_title`, `activity_group`, `activity_description`, `activity_points`) VALUES
+(1, 'Create Issue', 'Tracker', 'Create a new issue in tracker.', 3),
+(2, 'Comment Issue', 'Tracker', 'Add a comment to an issue.', 1),
+(3, 'Change Issue', 'Tracker', 'Change the status of an issue.', 1),
+(4, 'Test Issue', 'Test', 'Test an issue.', 4),
+(5, 'Patch Issue', 'Code', 'Create a patch or diff file for an issue.', 5),
+(6, 'Pull Request in Comment', 'Code', 'Add a pull request link in a comment.', 5),
+(7, 'Pull Request in Description', 'Code', 'Add a pull request link in the original issue description.', 5);
 
 CREATE TABLE IF NOT EXISTS `jos_code_activity_detail` (
   `activity_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-create; 2-comment; 3-change; 4-test; 5-patch; 6-pull in comment; 7-pull in description',
@@ -15,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `jos_code_activity_detail` (
   KEY `idx_activity_date` (`activity_date`),
   KEY `idx_user_id` (`user_id`),
   KEY `idx_jc_issue_id` (`jc_issue_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `jos_code_branches` (
