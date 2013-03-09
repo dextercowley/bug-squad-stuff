@@ -485,6 +485,10 @@ class CodeModelTrackerSync extends JModel
 			return false;
 		}
 		$this->processingTotals['issues']++;
+		if (!isset($exists->status))
+		{
+			$this->_addCreateActivities($data);
+		}
 
 		// Synchronize the assignees associated with the tracker item.
 		if (is_array($item->assignees)) {
@@ -879,7 +883,6 @@ class CodeModelTrackerSync extends JModel
 			}
 			$this->processingTotals['files']++;
 		}
-
 		return true;
 	}
 
@@ -1115,5 +1118,41 @@ class CodeModelTrackerSync extends JModel
 				);
 			}
 		}
+	}
+
+	private function _addCreateActivities($data)
+	{
+		if (!$this->_addActivity(1, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+		{
+			$this->setError(JFactory::getDbo()->getErrorMsg());
+			return false;
+		}
+		if (strpos($data['description'], "/pull/") !== false)
+		{
+			if (!$this->_addActivity(7, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			{
+				$this->setError(JFactory::getDbo()->getErrorMsg());
+				return false;
+			}
+		}
+	}
+
+	private function _addActivity($type, $xref, $userId, $issueId, $date)
+	{
+		$db = JFactory::getDbo();
+
+		$query = 'INSERT IGNORE INTO #__code_activity_detail SET activity_type = ' . (int) $type .
+				', activity_xref_id = ' . (int) $xref .
+				', user_id = ' . (int) $userId .
+				', jc_issue_id = ' . (int) $issueId .
+				', activity_date = ' . $db->quote($date);
+
+		$db->setQuery($query);
+		if (!$db->query())
+		{
+			$this->setError($db->getErrorMsg());
+			return false;
+		}
+		return true;
 	}
 }
