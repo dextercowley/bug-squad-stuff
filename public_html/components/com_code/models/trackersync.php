@@ -56,6 +56,12 @@ class CodeModelTrackerSync extends JModel
 	 */
 	protected $fieldValues = array();
 
+	/**
+	 * @var    array  Associative array of processing statistics
+	 * @since  1.0
+	 */
+	protected $processingTotals = array();
+
 
 	public function filefix()
 	{
@@ -192,6 +198,10 @@ class CodeModelTrackerSync extends JModel
 
 	public function sync()
 	{
+		$options['format'] = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
+		$options['text_file'] = 'gforge_sync.php';
+		$log = JLog::addLogger($options, JLog::INFO);
+		JLog::add('Starting the GForge Sync', JLog::INFO);
 		// Initialize variables.
 		$username = JFactory::getConfig()->get('gforgeLogin');
 		$password = JFactory::getConfig()->get('gforgePassword');
@@ -282,7 +292,10 @@ class CodeModelTrackerSync extends JModel
 			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total: $total\n";
 		}
 //			$this->_syncTrackerItem($items[8], $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
-
+		JLog::add('Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
+		$logMessage = 'Issues: ' . $this->processingTotals['issues'] . ';  Changes: ' . $this->processingTotals['changes'] . ';';
+		$logMessage .= '  Files: ' . $this->processingTotals['files'] . ';  Messages: ' . $this->processingTotals['messages'] . ';';
+		JLog::add($logMessage);
 		return true;
 	}
 
@@ -471,6 +484,7 @@ class CodeModelTrackerSync extends JModel
 			$this->setError($table->getError());
 			return false;
 		}
+		$this->processingTotals['issues']++;
 
 		// Synchronize the assignees associated with the tracker item.
 		if (is_array($item->assignees)) {
@@ -776,8 +790,8 @@ class CodeModelTrackerSync extends JModel
 				$this->setError($table->getError());
 				return false;
 			}
+			$this->processingTotals['changes']++;
 		}
-
 		return true;
 	}
 
@@ -818,8 +832,8 @@ class CodeModelTrackerSync extends JModel
 				$this->setError($table->getError());
 				return false;
 			}
+			$this->processingTotals['messages']++;
 		}
-
 		return true;
 	}
 
@@ -863,6 +877,7 @@ class CodeModelTrackerSync extends JModel
 				$this->setError($table->getError());
 				return false;
 			}
+			$this->processingTotals['files']++;
 		}
 
 		return true;
