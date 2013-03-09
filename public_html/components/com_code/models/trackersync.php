@@ -193,8 +193,8 @@ class CodeModelTrackerSync extends JModel
 	public function sync()
 	{
 		// Initialize variables.
-		$username = 'louis';
-		$password = 'gradf04';
+		$username = JFactory::getConfig()->get('gforgeLogin');
+		$password = JFactory::getConfig()->get('gforgePassword');
 // 		$username = 'dextercowley';
 // 		$password = '';
 		$project  = 5; // Joomla project id.
