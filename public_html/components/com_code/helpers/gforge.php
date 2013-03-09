@@ -367,7 +367,7 @@ class GForge
 			foreach ($items as $item) {
 				$itemArray[$item->tracker_item_id] = true;
 			}
-			krsort($itemArray);
+// 			krsort($itemArray);
 			return $items;
 		}
 		catch (SoapFault $e)
