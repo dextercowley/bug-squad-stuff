@@ -1,3 +1,22 @@
+CREATE TABLE `jos_code_activity_types` (
+  `activity_type` tinyint(4) default NULL COMMENT '1-create; 2-comment; 3-change; 4-test; 5-patch; 6-pull in comment; 7-pull in description',
+  `activity_title` varchar(128) default NULL COMMENT 'Activity title',
+  `activity_points` tinyint(4) default NULL COMMENT 'Weighting for each type of activity',
+  PRIMARY KEY  (`activity_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `jos_code_activity_detail` (
+  `activity_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-create; 2-comment; 3-change; 4-test; 5-patch; 6-pull in comment; 7-pull in description',
+  `activity_xref_id` int(10) unsigned NOT NULL COMMENT 'id for issue, response, change, or file',
+  `jc_user_id` int(11) DEFAULT NULL,
+  `jc_issue_id` int(11) DEFAULT NULL,
+  `activity_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`activity_type`,`activity_xref_id`),
+  KEY `idx_activity_date` (`activity_date`),
+  KEY `idx_jc_user_id` (`jc_user_id`),
+  KEY `idx_jc_issue_id` (`jc_issue_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `jos_code_branches` (
   `branch_id` int(10) unsigned NOT NULL auto_increment,
