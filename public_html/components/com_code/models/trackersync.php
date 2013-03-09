@@ -260,10 +260,26 @@ class CodeModelTrackerSync extends JModel
 			return false;
 		}
 
+		// Date for testing whether to sync or not
+		$cutoffDate = new DateTime("now");
+		$cutoffDate->sub(new DateInterval('P1Y'));
+
 		// Sync each tracker item.
 		foreach ($items as $item)
 		{
-			$this->_syncTrackerItem($item, $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
+			// Exclude items closed > 1 year
+			$closeDate = new DateTime($item->close_date);
+			if (isset($item->close_date) && $closeDate < $cutoffDate)
+			{
+				$skippedCount++;
+			}
+			else
+			{
+				$this->_syncTrackerItem($item, $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
+				$processedCount++;
+			}
+			$total = $skippedCount + $processedCount;
+			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total: $total\n";
 		}
 //			$this->_syncTrackerItem($items[8], $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
 
@@ -395,6 +411,13 @@ class CodeModelTrackerSync extends JModel
 
 		// Remove any duplicates.
 		$usersToLookUp = array_values(array_unique($usersToLookUp));
+
+		// Get rid of user id 0
+		sort($usersToLookUp);
+		if ($usersToLookUp[0] == 0)
+		{
+			array_shift($usersToLookUp);
+		}
 
 		// Get the syncronized user ids.
 		$users = $this->_syncUsers($usersToLookUp);
