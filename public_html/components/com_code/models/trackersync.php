@@ -1194,7 +1194,7 @@ class CodeModelTrackerSync extends JModel
 				return false;
 			}
 		}
-		if (strpos($data['body'], "@test/") !== false)
+		if (strpos($data['body'], "@test") !== false)
 		{
 			if (!$this->_addActivity(4, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
 			{
