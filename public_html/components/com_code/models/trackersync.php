@@ -1187,7 +1187,7 @@ class CodeModelTrackerSync extends JModel
 		{
 			return false;
 		}
-		if (strpos($data['body'], "/pull/") !== false || strpos($data['body'], "/compare/") !== false)
+		if (strpos($data['body'], "/pull/") !== false || strpos($data['body'], "/compare/") !== false || strpos($data['body'], ".diff") !== false)
 		{
 			if (!$this->_addActivity(6, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
 			{

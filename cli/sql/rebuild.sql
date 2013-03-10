@@ -47,7 +47,7 @@ FROM jos_code_tracker_issue_responses AS i
 JOIN jos_users AS u
 ON i.created_by = u.id
 WHERE tracker_id = 3
-AND i.body LIKE '%/pull%';
+AND (i.body LIKE '%/pull%' OR i.body LIKE '%/compare/%' OR i.body LIKE '%.diff');
 
 # type 7 Pull requests in original bug report
 INSERT INTO jos_code_activity_detail (activity_type, activity_xref_id, user_id, jc_issue_id, activity_date)
@@ -56,7 +56,7 @@ FROM jos_code_tracker_issues AS i
 JOIN jos_users AS u
 ON i.created_by = u.id
 WHERE tracker_id = 3
-AND description LIKE '%/pull%';
+AND (description LIKE '%/pull%' OR description LIKE '%/compare/%' OR description LIKE '%.diff');
 
 SELECT activity_type AS type, count(*)
 FROM jos_code_activity_detail
