@@ -289,7 +289,7 @@ class CodeModelTrackerSync extends JModel
 				$processedCount++;
 			}
 			$total = $skippedCount + $processedCount;
-			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total: $total\n";
+// 			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total: $total\n";
 		}
 //			$this->_syncTrackerItem($items[8], $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
 		JLog::add('Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
