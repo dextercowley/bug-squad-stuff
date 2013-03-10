@@ -12,7 +12,7 @@ INSERT INTO `jos_code_activity_types`
 (1, 'Create Issue', 'Tracker', 'Create a new issue in tracker.', 3),
 (2, 'Comment Issue', 'Tracker', 'Add a comment to an issue.', 1),
 (3, 'Change Issue', 'Tracker', 'Change the status of an issue.', 1),
-(4, 'Test Issue', 'Test', 'Test an issue.', 4),
+(4, 'Test Issue', 'Test', 'Test an issue.', 5),
 (5, 'Patch Issue', 'Code', 'Create a patch or diff file for an issue.', 5),
 (6, 'Pull Request in Comment', 'Code', 'Add a pull request link in a comment.', 5),
 (7, 'Pull Request in Description', 'Code', 'Add a pull request link in the original issue description.', 5);

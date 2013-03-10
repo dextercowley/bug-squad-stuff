@@ -365,7 +365,7 @@ class GForge
 // 			$items1 = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 5000, 3000);
 // 			$items = array_merge($items, $items1);
 			// For developing, just get the last 200 items
-			$items = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 6260);
+			$items = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 5800);
 			foreach ($items as $item) {
 				$itemArray[$item->tracker_item_id] = true;
 			}

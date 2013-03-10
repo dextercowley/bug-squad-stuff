@@ -487,7 +487,10 @@ class CodeModelTrackerSync extends JModel
 		$this->processingTotals['issues']++;
 		if (!isset($exists->status))
 		{
-			$this->_addCreateActivities($data);
+			if (!$this->_addCreateActivities($data))
+			{
+				return false;
+			}
 		}
 
 		// Synchronize the assignees associated with the tracker item.
@@ -794,6 +797,10 @@ class CodeModelTrackerSync extends JModel
 				$this->setError($table->getError());
 				return false;
 			}
+			if (!$this->_addActivity(3, $data['jc_issue_id'], $data['jc_change_by'], $data['jc_issue_id'], $data['change_date']))
+			{
+				return false;
+			}
 			$this->processingTotals['changes']++;
 		}
 		return true;
@@ -834,6 +841,10 @@ class CodeModelTrackerSync extends JModel
 			// Attempt to store the data.
 			if (!$table->store()) {
 				$this->setError($table->getError());
+				return false;
+			}
+			if (!$this->_addCommentActivity($data))
+			{
 				return false;
 			}
 			$this->processingTotals['messages']++;
@@ -879,6 +890,11 @@ class CodeModelTrackerSync extends JModel
 			// Attempt to store the data.
 			if (!$table->store()) {
 				$this->setError($table->getError());
+				return false;
+			}
+
+			if (!$this->_addFileActivity($data))
+			{
 				return false;
 			}
 			$this->processingTotals['files']++;
@@ -1120,32 +1136,15 @@ class CodeModelTrackerSync extends JModel
 		}
 	}
 
-	private function _addCreateActivities($data)
-	{
-		if (!$this->_addActivity(1, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
-		{
-			$this->setError(JFactory::getDbo()->getErrorMsg());
-			return false;
-		}
-		if (strpos($data['description'], "/pull/") !== false)
-		{
-			if (!$this->_addActivity(7, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
-			{
-				$this->setError(JFactory::getDbo()->getErrorMsg());
-				return false;
-			}
-		}
-	}
-
 	private function _addActivity($type, $xref, $userId, $issueId, $date)
 	{
 		$db = JFactory::getDbo();
 
 		$query = 'INSERT IGNORE INTO #__code_activity_detail SET activity_type = ' . (int) $type .
-				', activity_xref_id = ' . (int) $xref .
-				', user_id = ' . (int) $userId .
-				', jc_issue_id = ' . (int) $issueId .
-				', activity_date = ' . $db->quote($date);
+		', activity_xref_id = ' . (int) $xref .
+		', user_id = ' . (int) $userId .
+		', jc_issue_id = ' . (int) $issueId .
+		', activity_date = ' . $db->quote($date);
 
 		$db->setQuery($query);
 		if (!$db->query())
@@ -1155,4 +1154,57 @@ class CodeModelTrackerSync extends JModel
 		}
 		return true;
 	}
+
+	private function _addCreateActivities($data)
+	{
+		if (!$this->_addActivity(1, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+		{
+			return false;
+		}
+		if (strpos($data['description'], "/pull/") !== false)
+		{
+			if (!$this->_addActivity(7, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private function _addFileActivity($data)
+	{
+		if (strpos($data['name'], 'diff') !== false || strpos($data['name'], 'patch') !== false)
+		{
+			if (!$this->_addActivity(5, $data['jc_file_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private function _addCommentActivity($data)
+	{
+		if (!$this->_addActivity(2, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+		{
+			return false;
+		}
+		if (strpos($data['body'], "/pull/") !== false || strpos($data['body'], "/compare/") !== false)
+		{
+			if (!$this->_addActivity(6, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			{
+				return false;
+			}
+		}
+		if (strpos($data['body'], "@test/") !== false)
+		{
+			if (!$this->_addActivity(4, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+
 }
