@@ -24,13 +24,13 @@ class CodeController extends JController
 	/**
 	 * Display the view
 	 */
-	function display()
+	function display($cachable = false, $urlparams = false)
 	{
 		// Set the default view name and format from the Request.
 		$vName = JRequest::getWord('view', 'summary');
 		JRequest::setVar('view', $vName);
 
-		$user = & JFactory::getUser();
+		$user = JFactory::getUser();
 
 		$cachable = true;
 

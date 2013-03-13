@@ -29,7 +29,7 @@ function CodeBuildRoute(& $query)
 	if (empty($items))
 	{
 		// Get all relevant menu items.
-		$menu	= & JSite::getMenu();
+		$menu	= JFactory::getApplication()->getMenu();
 		$items	= $menu->getItems('component', 'com_code');
 
 		// Build an array of found menu item ids.

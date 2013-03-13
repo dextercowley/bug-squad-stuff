@@ -33,7 +33,7 @@ class CodeController extends JController
 	 *
 	 * @since	1.6
 	 */
-	public function display()
+	public function display($cachable = false, $urlparams = false)
 	{
 		require_once JPATH_COMPONENT.'/helpers/code.php';
 
