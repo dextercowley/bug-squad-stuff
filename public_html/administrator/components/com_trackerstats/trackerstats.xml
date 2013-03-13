@@ -26,7 +26,7 @@
 	</languages>
 
 	<administration>
-		<menu img="class:contact">com_trackerstats</menu>
+		<menu link="option=com_trackerstats" img="class:contact">com_trackerstats</menu>
 
 		<files folder="admin">
 			<filename>access.xml</filename>

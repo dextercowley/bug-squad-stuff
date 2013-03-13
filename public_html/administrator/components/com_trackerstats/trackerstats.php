@@ -9,5 +9,7 @@
  */
 
 defined('_JEXEC') or die;
+
+JFactory::getApplication()->set('JComponentTitle', 'Tracker Statistics');
 ?>
 <h1>Tracker statistics </h1>
