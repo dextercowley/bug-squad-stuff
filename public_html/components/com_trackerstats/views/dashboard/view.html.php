@@ -91,16 +91,21 @@ class TrackerstatsViewDashboard extends JViewLegacy
 		}
 
 		// Add graphing js
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/noconflict.js', 'text/javascript', true);
+		JHtml::_('behavior.framework');
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery-1.9.1.min.js', 'text/javascript', false);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/noconflict.js', 'text/javascript', false);
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.flot.js', 'text/javascript', true);
 
 		$drawGraph = "
-			window.addEvent('domready', function() {
- 				var chart = new MilkChart.Bar('chart');
+			var data,data1,options,chart;
+			data1 = [ [1,4],[2,5],[3,6],[4,9],[5,7],[6,6],[7,2],[8,1],[9,3] ];
+			data = [data1];
+			options = {};
+			jQuery(document).ready(function($){
+				chart1 = $.plot($('#placeholder'),data,options);
 			});
 		";
 		$this->document->addScriptDeclaration($drawGraph);
-		JHtml::_('behavior.keepalive');
+
 	}
 } // end of class

@@ -24,24 +24,4 @@ $listDirn	= '';
 $listFilter = '';
 ?>
 
-<table id="chart">
-    <thead>
-        <tr>
-            <th>Column A</th>
-        </tr>
-    </thead>
-    <tbody>
-    	<tr><td>0</td></tr>
-        <tr><td>8.3</td></tr>
-        <tr><td>8.6</td></tr>
-        <tr><td>8.8</td></tr>
-        <tr><td>10.5</td></tr>
-        <tr><td>11.1</td></tr>
-
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Row 1</td><td>Row 2</td><td>Row 3</td><td>Row 4</td><td>Row 5</td><td></td>
-        </tr>
-    </tfoot>
-</table>
+<div id="placeholder" style="width:500px; height:300px;"></div>
