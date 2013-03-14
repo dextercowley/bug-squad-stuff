@@ -48,19 +48,7 @@ $listFilter = '';
 
 	<table id="chart">
 		<thead><tr>
-			<th>
-				Total
-			</th>
-			<th>
-				Tracker
-			</th>
-			<th>
-				Test
-			</th>
-			<th>
-			Code
-			</th>
-
+			<th>Total</th>
 		</tr></thead>
 	<tbody>
 	<?php foreach ($this->items as $i => $item) : ?>
@@ -68,22 +56,16 @@ $listFilter = '';
 		<td>
 			<?php echo $item->total_points; ?>
 		</td>
-		<td>
-			<?php echo $item->tracker_points; ?>
-		</td>
-		<td>
-			<?php echo $item->test_points; ?>
-		</td>
-		<td>
-			<?php echo $item->code_points; ?>
-		</td>
 		</tr>
 	<?php endforeach; ?>
 </tbody>
 <tfoot>
         <tr>
-            <td>Row 1</td><td>Row 2</td><td>Row 3</td><td>Row 4</td><td>Row 5</td>
+        <?php foreach ($this->items as $i => $item) : ?>
+            <td><?php echo $item->name;?></td>
+         <?php endforeach; ?>
         </tr>
+</tfoot>
 </table>
 <div class="pagination">
 	<p class="counter">

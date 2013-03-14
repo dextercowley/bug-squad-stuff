@@ -97,7 +97,7 @@ class TrackerstatsViewDashboard extends JViewLegacy
 
 		$drawGraph = "
 			window.addEvent('domready', function() {
- 				var chart = new MilkChart.Column('chart');
+ 				var chart = new MilkChart.Bar('chart');
 			});
 		";
 		$this->document->addScriptDeclaration($drawGraph);
