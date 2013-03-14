@@ -17,7 +17,8 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 </h1>
 <?php endif; ?>
-
+<div id="myGraph">
+</div>
 
 <?php echo $this->loadTemplate('items'); ?>
 </div>

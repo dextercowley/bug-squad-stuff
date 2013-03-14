@@ -90,5 +90,19 @@ class TrackerstatsViewDashboard extends JViewLegacy
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
 
+		// Add graphing js
+		$this->document->addScript($this->baseurl . '/js/moobargraph-min.js', 'text/javascript', true);
+		$drawGraph = "
+			window.addEvent('domready', function() {
+ 				var myGraph = new mooBarGraph({
+					container: $('myGraph'),
+					data: 		graphData
+				});
+			});
+			var graphData = Array(
+				[100],[125],[80]
+			);
+		";
+		$this->document->addScriptDeclaration($drawGraph);
 	}
 } // end of class
