@@ -2,7 +2,7 @@
 /**
  * @version		$Id: default.php 272 2011-08-11 00:32:05Z dextercowley $
  * @package		Joomla.Site
- * @subpackage	com_joomprosubs
+ * @subpackage	com_trackerstats
  * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */

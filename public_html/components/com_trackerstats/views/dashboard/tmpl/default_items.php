@@ -1,6 +1,6 @@
 <?php
 /**
- * @subpackage	com_joomprosubs
+ * @subpackage	com_trackerstats
  * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -16,7 +16,7 @@ JHtml::core();
 
 // Get the user object.
 $user = JFactory::getUser();
-// Check if user is allowed to add/edit based on joomprosubs permissions.
+// Check if user is allowed to add/edit based on trackerstats permissions.
 $canEdit = $user->authorise('core.edit', 'com_trackerstats');
 
 $listOrder	= '';
@@ -49,15 +49,23 @@ $listFilter = '';
 	<table class="category">
 		<thead><tr>
 			<th class="title">
-				<?php echo JHtml::_('grid.sort',  'COM_JOOMPROSUBS_GRID_TITLE',
+				<?php echo JHtml::_('grid.sort',  'COM_TRACKERSTATS_GRID_NAME',
 					'a.title', $listDirn, $listOrder); ?>
 			</th>
-			<th class="group">
-				<?php echo JHtml::_('grid.sort', 'COM_JOOMPROSUBS_GRID_GROUP',
+			<th class="points">
+				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_TOTAL_POINTS',
 					'g.title', $listDirn, $listOrder); ?>
 			</th>
-			<th class="duration">
-				<?php echo JHtml::_('grid.sort', 'COM_JOOMPROSUBS_GRID_DURATION',
+			<th class="points">
+				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_TRACKER_POINTS',
+					'a.duration', $listDirn, $listOrder); ?>
+			</th>
+			<th class="points">
+				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_TEST_POINTS',
+					'a.duration', $listDirn, $listOrder); ?>
+			</th>
+			<th class="points">
+				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_CODE_POINTS',
 					'a.duration', $listDirn, $listOrder); ?>
 			</th>
 		</tr></thead>
@@ -67,11 +75,17 @@ $listFilter = '';
 		<td class="title">
 			<?php echo $item->name;?>
 		</td>
-		<td class="item-group">
-			<?php echo $item->name; ?>
+		<td class="item-points">
+			<?php echo $item->total_points; ?>
 		</td>
-		<td class="item-duration">
-			<?php echo $item->name; ?>
+		<td class="item-points">
+			<?php echo $item->tracker_points; ?>
+		</td>
+		<td class="item-points">
+			<?php echo $item->test_points; ?>
+		</td>
+		<td class="item-points">
+			<?php echo $item->code_points; ?>
 		</td>
 		</tr>
 	<?php endforeach; ?>

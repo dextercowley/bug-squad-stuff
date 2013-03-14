@@ -53,6 +53,7 @@ class TrackerstatsModelDashboard extends JModelList
 		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
 		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL -1 MONTH))');
 		$query->order('SUM(t.activity_points) DESC');
+		$query->group('a.user_id');
 
 		return $query;
 	}
