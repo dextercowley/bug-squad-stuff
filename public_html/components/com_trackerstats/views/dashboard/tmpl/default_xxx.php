@@ -27,19 +27,21 @@ $listFilter = '';
 <table id="chart">
     <thead>
         <tr>
-            <th>Column A</th><th>Column B</th><th>Column C</th><th>Column D</th>
+            <th>Column A</th>
         </tr>
     </thead>
     <tbody>
-        <tr><td>8.3</td><td>70</td><td>10.3</td><td>100</td></tr>
-        <tr><td>8.6</td><td>65</td><td>10.3</td><td>125</td></tr>
-        <tr><td>8.8</td><td>63</td><td>10.2</td><td>106</td></tr>
-        <tr><td>10.5</td><td>72</td><td>16.4</td><td>162</td></tr>
-        <tr><td>11.1</td><td>80</td><td>22.6</td><td>89</td></tr>
+    	<tr><td>0</td></tr>
+        <tr><td>8.3</td></tr>
+        <tr><td>8.6</td></tr>
+        <tr><td>8.8</td></tr>
+        <tr><td>10.5</td></tr>
+        <tr><td>11.1</td></tr>
+
     </tbody>
     <tfoot>
         <tr>
-            <td>Row 1</td><td>Row 2</td><td>Row 3</td><td>Row 4</td><td>Row 5</td>
+            <td>Row 1</td><td>Row 2</td><td>Row 3</td><td>Row 4</td><td>Row 5</td><td></td>
         </tr>
     </tfoot>
 </table>

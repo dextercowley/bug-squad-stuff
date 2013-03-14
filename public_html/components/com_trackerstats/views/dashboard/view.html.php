@@ -91,9 +91,9 @@ class TrackerstatsViewDashboard extends JViewLegacy
 		}
 
 		// Add graphing js
-		JHtml::_('behavior.mootools');
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/MilkChart_src.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/media/system/js/mootools-more.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/noconflict.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.flot.js', 'text/javascript', true);
 
 		$drawGraph = "
 			window.addEvent('domready', function() {
