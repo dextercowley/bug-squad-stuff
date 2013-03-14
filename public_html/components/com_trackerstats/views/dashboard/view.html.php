@@ -91,18 +91,16 @@ class TrackerstatsViewDashboard extends JViewLegacy
 		}
 
 		// Add graphing js
-		$this->document->addScript($this->baseurl . '/js/moobargraph-min.js', 'text/javascript', true);
+		JHtml::_('behavior.mootools');
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/MilkChart_src.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/media/system/js/mootools-more.js', 'text/javascript', true);
+
 		$drawGraph = "
 			window.addEvent('domready', function() {
- 				var myGraph = new mooBarGraph({
-					container: $('myGraph'),
-					data: 		graphData
-				});
+ 				var chart = new MilkChart.Column('chart');
 			});
-			var graphData = Array(
-				[100],[125],[80]
-			);
 		";
 		$this->document->addScriptDeclaration($drawGraph);
+		JHtml::_('behavior.keepalive');
 	}
 } // end of class

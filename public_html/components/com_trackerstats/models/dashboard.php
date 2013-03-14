@@ -71,7 +71,7 @@ class TrackerstatsModelDashboard extends JModelList
 		// Initialise variables.
 		$app	= JFactory::getApplication();
 		$params	= JComponentHelper::getParams('com_trackerstats');
-		$limit = 20;
+		$limit = 4;
 		$this->setState('list.limit', $limit);
 		$limitstart = 0;
 		$this->setState('list.start', $limitstart);

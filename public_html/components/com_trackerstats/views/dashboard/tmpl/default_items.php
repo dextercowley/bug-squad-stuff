@@ -46,50 +46,44 @@ $listFilter = '';
 	</div>
 	</fieldset>
 
-	<table class="category">
+	<table id="chart">
 		<thead><tr>
-			<th class="title">
-				<?php echo JHtml::_('grid.sort',  'COM_TRACKERSTATS_GRID_NAME',
-					'a.title', $listDirn, $listOrder); ?>
+			<th>
+				Total
 			</th>
-			<th class="points">
-				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_TOTAL_POINTS',
-					'g.title', $listDirn, $listOrder); ?>
+			<th>
+				Tracker
 			</th>
-			<th class="points">
-				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_TRACKER_POINTS',
-					'a.duration', $listDirn, $listOrder); ?>
+			<th>
+				Test
 			</th>
-			<th class="points">
-				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_TEST_POINTS',
-					'a.duration', $listDirn, $listOrder); ?>
+			<th>
+			Code
 			</th>
-			<th class="points">
-				<?php echo JHtml::_('grid.sort', 'COM_TRACKERSTATS_GRID_CODE_POINTS',
-					'a.duration', $listDirn, $listOrder); ?>
-			</th>
+
 		</tr></thead>
 	<tbody>
 	<?php foreach ($this->items as $i => $item) : ?>
-		<tr class="cat-list-row<?php echo $i % 2; ?>" >
-		<td class="title">
-			<?php echo $item->name;?>
-		</td>
-		<td class="item-points">
+		<tr>
+		<td>
 			<?php echo $item->total_points; ?>
 		</td>
-		<td class="item-points">
+		<td>
 			<?php echo $item->tracker_points; ?>
 		</td>
-		<td class="item-points">
+		<td>
 			<?php echo $item->test_points; ?>
 		</td>
-		<td class="item-points">
+		<td>
 			<?php echo $item->code_points; ?>
 		</td>
 		</tr>
 	<?php endforeach; ?>
 </tbody>
+<tfoot>
+        <tr>
+            <td>Row 1</td><td>Row 2</td><td>Row 3</td><td>Row 4</td><td>Row 5</td>
+        </tr>
 </table>
 <div class="pagination">
 	<p class="counter">
