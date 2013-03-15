@@ -1,5 +1,7 @@
 <?php
 $label = array('label' => 'Europe (EU27)');
-$numbers = array(array(1999, 3.0), array(2000, 3.9), array(2001, 2.0), array(2002, 1.2) );
-echo json_encode(array('label' => 'Europe (EU27)', 'data' => $numbers));
-die;
+$v = array(mt_rand(0,100), mt_rand(0,100), mt_rand(0,100), mt_rand(0,100));
+$label = array('label' => 'Europe (EU27)' . mt_rand(0,10000));
+$numbers = array(array(1999, $v[0]), array(2000, $v[1]), array(2001, $v[2]), array(2002, $v[3]) );
+echo json_encode(array('label' => 'Europe (EU27)' . mt_rand(0,10000), 'data' => $numbers));
+die();

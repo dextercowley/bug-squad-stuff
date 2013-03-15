@@ -47,13 +47,13 @@ $jsonSource = $this->baseurl . "/components/com_trackerstats/views/dashboard/tmp
 
 		<p>
 			<button class="fetchSeries">Second dataset</button>
-			[ <a href="data-japan-gdp-growth.json">see data</a> ]
+			[ <a href="<?php echo $jsonSource;?>">see data</a> ]
 			<span></span>
 		</p>
 
 		<p>
 			<button class="fetchSeries">Third dataset</button>
-			[ <a href="data-usa-gdp-growth.json">see data</a> ]
+			[ <a href="<?php echo $jsonSource;?>">see data</a> ]
 			<span></span>
 		</p>
 

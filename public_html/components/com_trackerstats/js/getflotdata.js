@@ -14,6 +14,7 @@
 		};
 
 		var data = [];
+		var dataurl = '';
 
 		$.plot("#placeholder", data, options);
 
@@ -27,7 +28,7 @@
 
 			// Find the URL in the link right next to us, then fetch the data
 
-			var dataurl = button.siblings("a").attr("href");
+			dataurl = button.siblings("a").attr("href");
 
 			function onDataReceived(series) {
 
@@ -84,7 +85,7 @@
 				// files, so we need to modify the URL.
 
 				$.ajax({
-					url: "data-eu-gdp-growth-" + iteration + ".json",
+					url: dataurl,
 					type: "GET",
 					dataType: "json",
 					success: onDataReceived
