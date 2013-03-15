@@ -95,6 +95,7 @@ class TrackerstatsViewDashboard extends JViewLegacy
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery-1.9.1.min.js', 'text/javascript', false);
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/noconflict.js', 'text/javascript', false);
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.flot.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/getflotdata.js', 'text/javascript', true);
 
 		$drawGraph = "
 			var data,data1,options,chart;
@@ -105,7 +106,7 @@ class TrackerstatsViewDashboard extends JViewLegacy
 				chart1 = $.plot($('#placeholder'),data,options);
 			});
 		";
-		$this->document->addScriptDeclaration($drawGraph);
+// 		$this->document->addScriptDeclaration($drawGraph);
 
 	}
 } // end of class
