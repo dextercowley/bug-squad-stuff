@@ -94,22 +94,13 @@ class TrackerstatsViewDashboard extends JViewLegacy
 		JHtml::_('behavior.framework');
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery-1.9.1.min.js', 'text/javascript', false);
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/noconflict.js', 'text/javascript', false);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.flot.js', 'text/javascript', true);
-// 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.flot.stack.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.flot.categories.js', 'text/javascript', true);
-// 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/getflotdata.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.jqplot.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.barRenderer.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.pointLabels.min.js', 'text/javascript', true);
+// 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/getchartdata.js', 'text/javascript', true);
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/stackedbar.js', 'text/javascript', true);
-
-		$drawGraph = "
-			var data,data1,options,chart;
-			data1 = [ [1,4],[2,5],[3,6],[4,9],[5,7],[6,6],[7,2],[8,1],[9,3] ];
-			data = [data1];
-			options = {};
-			jQuery(document).ready(function($){
-				chart1 = $.plot($('#placeholder'),data,options);
-			});
-		";
-// 		$this->document->addScriptDeclaration($drawGraph);
+		$this->document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/js/jquery.jqplot.min.css' );
 
 	}
 } // end of class

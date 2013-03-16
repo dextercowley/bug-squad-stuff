@@ -25,24 +25,5 @@ $listFilter = '';
 $jsonSource = $this->baseurl . "/components/com_trackerstats/views/dashboard/tmpl/getgraphdata.php";
 ?>
 
-	<div id="header">
-		<h2>Stacking</h2>
-	</div>
-
-	<div id="header">
-		<h2>Categories</h2>
-	</div>
-
-	<div id="content">
-
-		<div class="demo-container">
-			<div id="placeholder" style="height: 400px; width: 700px;" class="demo-placeholder"></div>
-		</div>
-
-		<p>With the categories plugin you can plot categories/textual data easily.</p>
-
-	</div>
-
-	<div id="footer">
-		Copyright &copy; 2007 - 2013 IOLA and Ole Laursen
-	</div>
+ <h1>Test Title</h1>
+ <div id="chart1" style="width:600px; height:250px;"></div>
