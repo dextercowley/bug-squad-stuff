@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
     var s1 = [200, 600, 700, 1000];
-    var s2 = [460, -210, 690, 820];
-    var s3 = [-260, -440, 320, 200];
+    var s2 = [460, 210, 690, 820];
+    var s3 = [260, 440, 320, 200];
     // Can specify a custom tick Array.
     // Ticks should match up one for each y value (category) in the series.
     var ticks = ['May', 'June', 'July', 'August'];

@@ -100,6 +100,7 @@ class TrackerstatsViewDashboard extends JViewLegacy
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.pointLabels.min.js', 'text/javascript', true);
 // 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/getchartdata.js', 'text/javascript', true);
 		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/stackedbar.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/ajaxrenderer.js', 'text/javascript', true);
 		$this->document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/js/jquery.jqplot.min.css' );
 
 	}
