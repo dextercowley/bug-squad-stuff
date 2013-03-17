@@ -23,7 +23,8 @@ $canEdit = $user->authorise('core.edit', 'com_trackerstats');
 $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
-$jsonSource = $this->baseurl . "/components/com_trackerstats/json/getchart2data.php";
+// $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
 ?>
 
   <h2>Chart 2</h2>
