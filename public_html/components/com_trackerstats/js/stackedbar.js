@@ -7,6 +7,7 @@ jQuery(document).ready(function($){
     var ticks = ['May', 'June', 'July', 'August'];
      
     var plot1 = $.jqplot('chart1', [s1, s2, s3], {
+    	title: "Stacked Bar With Static Data",
     	stackSeries: true,
         // The "seriesDefaults" option is an options object that will
         // be applied to all series in the chart.

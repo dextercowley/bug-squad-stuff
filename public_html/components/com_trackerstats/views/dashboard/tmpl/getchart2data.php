@@ -8,7 +8,7 @@ $label1 = new stdClass();
 $label2 = new stdClass();
 $label3 = new stdClass();
 $label1->label = 'Hotel';
-$label2->label = 'Event Reg';
+$label2->label = 'Event Registration';
 $label3->label = 'Airfare';
 $labels = array($label1, $label2, $label3);
 // assemble array
