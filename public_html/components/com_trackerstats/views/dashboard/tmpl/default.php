@@ -19,6 +19,6 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 <?php endif; ?>
 
 
-<?php echo $this->loadTemplate('xxx'); ?>
+<?php echo $this->loadTemplate('charts'); ?>
 
 </div>

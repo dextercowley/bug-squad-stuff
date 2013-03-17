@@ -22,11 +22,9 @@ $canEdit = $user->authorise('core.edit', 'com_trackerstats');
 $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
-$jsonSource = $this->baseurl . "/components/com_trackerstats/views/dashboard/tmpl/getchart2data.php";
+$jsonSource = $this->baseurl . "/components/com_trackerstats/json/getchart2data.php";
 ?>
 
- <h2>Chart 1</h2>
- <div id="chart1" style="width:600px; height:250px;" ></div>
   <h2>Chart 2</h2>
- <div id="chart2" style="width:600px; height:250px;" href="<?php echo $jsonSource; ?>"></div>
+ <div id="chart2" style="width:600px; height:800px;" href="<?php echo $jsonSource; ?>"></div>
  <a href="<?php echo $jsonSource; ?>">See Data</a>
