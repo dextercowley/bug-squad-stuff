@@ -11,6 +11,9 @@ $label1->label = 'Hotel';
 $label2->label = 'Event Registration';
 $label3->label = 'Airfare';
 $labels = array($label1, $label2, $label3);
+$title = new stdClass();
+$title->title = "Test Title with new JS Method";
+$title->subtitle = "Test Subtitle";
 // assemble array
-echo json_encode(array($data, $ticks, $labels));
+echo json_encode(array($data, $ticks, $labels, $title));
 die();

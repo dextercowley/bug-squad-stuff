@@ -9,7 +9,7 @@
 
 // no direct access
 defined('_JEXEC') or die;
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+
 ?>
 <div class="trackerstats-dashboard<?php echo $this->pageclass_sfx;?>">
 <?php if ($this->params->def('show_page_heading', 1)) : ?>

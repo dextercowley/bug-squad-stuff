@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::core();
+JHtml::_('barchart.barchart', 'chart2', 'chart2');
 
 // Get the user object.
 $user = JFactory::getUser();

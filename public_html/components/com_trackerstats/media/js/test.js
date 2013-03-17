@@ -45,3 +45,17 @@ $$('.input-colorpicker').each(function(item){
 });
 
 window.addEvent("domready", function(){ keepAlive.periodical(3600000); });
+
+(function($){
+	$(document).ready(function() {
+		// Handler for .ready() called.
+		var tab = $('<li class=" active"><a href="#page-site" data-toggle="tab">Site</a></li>');
+		$('#myTabTabs').append(tab);
+	});
+})(jQuery);
+
+(function ($){
+	$(document).ready(function (){
+		var barchart = new $.JQPLOTBarchart('chart2','chart2');
+	});
+})(jQuery);
