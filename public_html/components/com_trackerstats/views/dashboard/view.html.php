@@ -92,14 +92,14 @@ class TrackerstatsViewDashboard extends JViewLegacy
 
 		// Add graphing js
 		JHtml::_('behavior.framework');
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery-1.9.1.min.js', 'text/javascript', false);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/noconflict.js', 'text/javascript', false);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jquery.jqplot.min.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.barRenderer.min.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/jqplot.pointLabels.min.js', 'text/javascript', true);
-		$this->document->addScript($this->baseurl . '/components/com_trackerstats/js/getjqchartdata.js', 'text/javascript', true);
-		$this->document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/js/jquery.jqplot.min.css' );
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/noconflict.js', 'text/javascript', false);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/jquery.jqplot.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/jqplot.barRenderer.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/jqplot.pointLabels.min.js', 'text/javascript', true);
+		$this->document->addScript($this->baseurl . '/components/com_trackerstats/media/js/getjqchartdata.js', 'text/javascript', true);
+		$this->document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery.jqplot.min.css' );
 
 	}
 } // end of class
