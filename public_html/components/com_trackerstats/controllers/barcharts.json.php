@@ -24,23 +24,36 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-		$return = array();
+		$model = $this->getModel('Dashboard', 'TrackerstatsModel');
+		$items = $model->getItems();
+		$ticks = array();
+		$trackerPoints = array();
+		$testPoints = array();
+		$codePoints = array();
+		$title = new stdClass();
+		foreach($items as $item)
+		{
+			$ticks[] = $item->name;
+			$trackerPoints[] = (int) $item->tracker_points;
+			$testPoints[] = (int) $item->test_points;
+			$codePoints[] = (int) $item->code_points;
+		}
 
-		$s1 = array(200,600,700,1000);
-		$s2 = array(460, 210, 690, 820);
-		$s3 = array(260, 440, 320, 200);
-		$data = array($s1,$s2,$s3);
-		$ticks = array('Feb', 'Mar', 'Apr', 'May');
+// 		$s1 = array(200,600,700,1000);
+// 		$s2 = array(460, 210, 690, 820);
+// 		$s3 = array(260, 440, 320, 200);
+		$data = array($trackerPoints, $testPoints, $codePoints);
+// 		$ticks = array('Feb', 'Mar', 'Apr', 'May');
 		$label1 = new stdClass();
 		$label2 = new stdClass();
 		$label3 = new stdClass();
-		$label1->label = 'Hotel';
-		$label2->label = 'Event Registration';
-		$label3->label = 'Airfare';
+		$label1->label = 'Tracker Points';
+		$label2->label = 'Test Points';
+		$label3->label = 'Code Points';
 		$labels = array($label1, $label2, $label3);
 		$title = new stdClass();
-		$title->title = "New Title with new JS Method";
-		$title->subtitle = "Test Subtitle";
+		$title->title = "Bug Squad Activity by Person";
+		$title->subtitle = "Past 30 Days";
 		// assemble array
 		$return = (array($data, $ticks, $labels, $title));
 		// Check the data.

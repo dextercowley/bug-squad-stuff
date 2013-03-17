@@ -31,7 +31,8 @@
 						rendererOptions : {
 							fillToZero : true,
 							barDirection : 'horizontal'
-						}
+						},
+						pointLabels: {show: false}
 					},
 					// Custom labels for the series are specified with the
 					// "label"
@@ -51,10 +52,11 @@
 					axes : {
 						// Use a category axis on the x axis and use our custom
 						// ticks.
+						xaxis : {padMin: 0},
 						yaxis : {
 							renderer : $.jqplot.CategoryAxisRenderer,
 							ticks : chartTicks
-						},
+						}
 					}
 				});
 			}
