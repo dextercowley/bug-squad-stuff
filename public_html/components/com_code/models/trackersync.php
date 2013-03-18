@@ -795,7 +795,7 @@ class CodeModelTrackerSync extends JModel
 				$this->setError($table->getError());
 				return false;
 			}
-			if (!$this->_addActivity(3, $data['jc_issue_id'], $data['jc_change_by'], $data['jc_issue_id'], $data['change_date']))
+			if (!$this->_addActivity(3, $data['jc_issue_id'], $users[$change->user_id], $data['jc_issue_id'], $data['change_date']))
 			{
 				return false;
 			}
