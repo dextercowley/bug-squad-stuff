@@ -19,7 +19,7 @@
 				var chartData = series[0];
 				var chartTicks = series[1];
 				var chartLabels = series[2];
-				var title = series[3].title;
+				var title = series[3];
 				var plot2 = $.jqplot(containerId, chartData, {
 					title : title,
 					stackSeries : true,
@@ -30,7 +30,10 @@
 						renderer : $.jqplot.BarRenderer,
 						rendererOptions : {
 							fillToZero : true,
-							barDirection : 'horizontal'
+							barDirection : 'horizontal',
+							barWidth: 10,
+							barMargin: 1,
+							barPadding: 1,
 						},
 						pointLabels: {show: false}
 					},
@@ -52,7 +55,7 @@
 					axes : {
 						// Use a category axis on the x axis and use our custom
 						// ticks.
-						xaxis : {padMin: 0},
+						xaxis : {padMin: 0, pad: 1.05},
 						yaxis : {
 							renderer : $.jqplot.CategoryAxisRenderer,
 							ticks : chartTicks

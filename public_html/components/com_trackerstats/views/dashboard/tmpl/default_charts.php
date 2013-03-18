@@ -27,6 +27,6 @@ $listFilter = '';
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
 ?>
 
-  <h2>Chart 2</h2>
- <div id="chart2" style="width:600px; height:800px;" href="<?php echo $jsonSource; ?>"></div>
+  <h2>Bug Squad Activity</h2>
+ <div id="chart2" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
  <a href="<?php echo $jsonSource; ?>">See Data</a>

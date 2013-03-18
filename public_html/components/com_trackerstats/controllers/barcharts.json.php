@@ -25,25 +25,25 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		$model = $this->getModel('Dashboard', 'TrackerstatsModel');
+
 		$items = $model->getItems();
 		$ticks = array();
 		$trackerPoints = array();
 		$testPoints = array();
 		$codePoints = array();
 		$title = new stdClass();
-		foreach($items as $item)
-		{
-			$ticks[] = $item->name;
-			$trackerPoints[] = (int) $item->tracker_points;
-			$testPoints[] = (int) $item->test_points;
-			$codePoints[] = (int) $item->code_points;
-		}
 
-// 		$s1 = array(200,600,700,1000);
-// 		$s2 = array(460, 210, 690, 820);
-// 		$s3 = array(260, 440, 320, 200);
+		// Build series arrays in reverse order for the chart
+		$i = count($items);
+		while ($i > 0 )
+		{
+			$i--;
+			$ticks[] = $items[$i]->name;
+			$trackerPoints[] = (int) $items[$i]->tracker_points;
+			$testPoints[] = (int) $items[$i]->test_points;
+			$codePoints[] = (int) $items[$i]->code_points;
+		}
 		$data = array($trackerPoints, $testPoints, $codePoints);
-// 		$ticks = array('Feb', 'Mar', 'Apr', 'May');
 		$label1 = new stdClass();
 		$label2 = new stdClass();
 		$label3 = new stdClass();
@@ -51,16 +51,11 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 		$label2->label = 'Test Points';
 		$label3->label = 'Code Points';
 		$labels = array($label1, $label2, $label3);
-		$title = new stdClass();
-		$title->title = "Bug Squad Activity by Person";
-		$title->subtitle = "Past 30 Days";
+
+		$title = "Points for Past 30 Days";
+
 		// assemble array
 		$return = (array($data, $ticks, $labels, $title));
-		// Check the data.
-		if (empty($return))
-		{
-			$return = array();
-		}
 
 		// Use the correct json mime-type
 		header('Content-Type: application/json');
