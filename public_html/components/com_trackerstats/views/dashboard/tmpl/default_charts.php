@@ -48,6 +48,6 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', $jsonSource);
 			<option value="2">Test</option>
 			<option value="3">Code</option>
 		</select>
-		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >Update Chart</button>
+		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
 	</div>
   </fieldset>
