@@ -31,14 +31,14 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 		$periodType = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = array(1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => 'Year');
+		$periodTitle = array(1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => '12 Months');
 		$periodText = $periodTitle[$periodType];
 
 		$activityTypes = array('All', 'Tracker', 'Test', 'Code');
-		$activityType = $activityTypes[$activityType];
+		$activityText = $activityTypes[$activityType];
 
 // 		$title = new stdClass();
-		$title = "$activityType Points for Past $periodText";
+		$title = "$activityText Points for Past $periodText";
 
 		$ticks = array();
 		$trackerPoints = array();
@@ -55,19 +55,41 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 			$testPoints[] = (int) $items[$i]->test_points;
 			$codePoints[] = (int) $items[$i]->code_points;
 		}
-		$data = array($trackerPoints, $testPoints, $codePoints);
+
+		$data = array($trackerPoints);
 		$label1 = new stdClass();
 		$label2 = new stdClass();
 		$label3 = new stdClass();
 		$label1->label = 'Tracker Points';
 		$label2->label = 'Test Points';
 		$label3->label = 'Code Points';
-		$labels = array($label1, $label2, $label3);
 
+		switch ($activityText)
+		{
+			case 'Tracker':
+				$data = array($trackerPoints);
+				$labels = array($lable1);
+				break;
 
+			case 'Test':
+				$data = array($testPoints);
+				$labels = array($label2);
+				break;
+
+			case 'Code':
+				$data = array($codePoints);
+				$labels = array($label3);
+				break;
+
+			case 'All':
+			default:
+				$data = array($trackerPoints, $testPoints, $codePoints);
+				$labels = array($label1, $label2, $label3);
+				break;
+		}
 
 		// assemble array
-		$return = (array($data, $ticks, $labels, $title));
+		$return = array($data, $ticks, $labels, $title);
 
 		// Use the correct json mime-type
 		header('Content-Type: application/json');

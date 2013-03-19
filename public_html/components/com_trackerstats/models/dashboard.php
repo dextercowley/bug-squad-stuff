@@ -43,7 +43,8 @@ class TrackerstatsModelDashboard extends JModelList
 		$periodList = array(1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR');
 		$periodValue = $periodList[$this->state->get('list.period')];
 
-		$typeList = array(1 => 'Tracker', 2 => 'Test', 3 => 'Code');
+		$typeList = array('All', 'Tracker', 'Test', 'Code');
+		$type = $typeList[$this->state->get('list.activity_type')];
 
 		// Select required fields from the categories.
 		$query->select('u.name');
@@ -59,10 +60,14 @@ class TrackerstatsModelDashboard extends JModelList
 
 		if ($this->state->get('list.activity_type') > 0)
 		{
-			$query->where('t.activity_type = ' . $db->q($typeList[$this->state->get('list.activity_type')]));
+			$query->where('t.activity_group = ' . $db->q($type));
+			$query->order("SUM(CASE WHEN t.activity_group = " . $db->q($type) . " THEN t.activity_points ELSE 0 END) DESC");
+		}
+		else
+		{
+			$query->order("SUM(t.activity_points) DESC");
 		}
 
-		$query->order('SUM(t.activity_points) DESC');
 		$query->group('a.user_id');
 
 		return $query;
@@ -81,7 +86,7 @@ class TrackerstatsModelDashboard extends JModelList
 		$app	= JFactory::getApplication();
 		$jinput = $app->input;
 		$params	= JComponentHelper::getParams('com_trackerstats');
-		$this->setState('list.limit', 25);
+		$this->setState('list.limit', 3);
 		$this->setState('list.start', 0);
 		$this->setState('list.period', $jinput->getInt('period', 1));
 		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
