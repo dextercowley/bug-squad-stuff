@@ -86,7 +86,7 @@ class TrackerstatsModelDashboard extends JModelList
 		$app	= JFactory::getApplication();
 		$jinput = $app->input;
 		$params	= JComponentHelper::getParams('com_trackerstats');
-		$this->setState('list.limit', 3);
+		$this->setState('list.limit', 25);
 		$this->setState('list.start', 0);
 		$this->setState('list.period', $jinput->getInt('period', 1));
 		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));

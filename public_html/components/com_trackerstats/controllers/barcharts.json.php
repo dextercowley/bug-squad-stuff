@@ -36,8 +36,6 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 
 		$activityTypes = array('All', 'Tracker', 'Test', 'Code');
 		$activityText = $activityTypes[$activityType];
-
-// 		$title = new stdClass();
 		$title = "$activityText Points for Past $periodText";
 
 		$ticks = array();
@@ -56,7 +54,7 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 			$codePoints[] = (int) $items[$i]->code_points;
 		}
 
-		$data = array($trackerPoints);
+		$data = array();
 		$label1 = new stdClass();
 		$label2 = new stdClass();
 		$label3 = new stdClass();
@@ -68,7 +66,7 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 		{
 			case 'Tracker':
 				$data = array($trackerPoints);
-				$labels = array($lable1);
+				$labels = array($label1);
 				break;
 
 			case 'Test':
