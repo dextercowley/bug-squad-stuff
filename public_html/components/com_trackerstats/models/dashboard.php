@@ -51,7 +51,7 @@ class TrackerstatsModelDashboard extends JModelList
 		$query->from($db->qn('#__code_activity_detail') . ' AS a');
 		$query->join('LEFT', $db->qn('#__users') . 'AS u ON u.id = a.user_id');
 		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
-		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL -1 MONTH))');
+		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL -7 DAY))');
 		$query->order('SUM(t.activity_points) DESC');
 		$query->group('a.user_id');
 
@@ -70,12 +70,12 @@ class TrackerstatsModelDashboard extends JModelList
 	{
 		// Initialise variables.
 		$app	= JFactory::getApplication();
+		$jinput = $app->input;
 		$params	= JComponentHelper::getParams('com_trackerstats');
-		$limit = 20;
-		$this->setState('list.limit', $limit);
-		$limitstart = 0;
-		$this->setState('list.start', $limitstart);
-		;
+		$this->setState('list.limit', 25);
+		$this->setState('list.start', 0);
+		$this->setState('list.days', $jinput->getInt('list.days', 7));
+		$this->setState('list.activity_type', $jinput->getInt('list.activity_type', 0));
 	}
 
 } // end of class

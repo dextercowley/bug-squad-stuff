@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::core();
-JHtml::_('barchart.barchart', 'chart2', 'chart2');
+
 
 // Get the user object.
 $user = JFactory::getUser();
@@ -25,8 +25,29 @@ $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
+JHtml::_('barchart.barchart', 'chart', $jsonSource, $jsonSource . '&type=3');
 ?>
 
-  <h2>Bug Squad Activity</h2>
- <div id="chart2" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
- <a href="<?php echo $jsonSource; ?>">See Data</a>
+<h2>Bug Squad Activity</h2>
+<div id="chart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
+</br>
+<fieldset class="filters btn-toolbar">
+<h3>Chart Options</h3>
+	<div class="btn-group pull-right">
+		<label for="period" class="element-invisible">Period</label>
+		<select id="period" name="period" class="inputbox input-mini" size="1" >
+			<option value="1" selected="selected">7 Days</option>
+			<option value="2">30 Days&nbsp;&nbsp;</option>
+			<option value="3">90 Days&nbsp;&nbsp;</option>
+			<option value="4">1 Year</option>
+		</select>
+		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
+		<select id="type" name="type" class="inputbox input-mini" size="1" >
+			<option value="1" selected="selected">All</option>
+			<option value="2">Tracker&nbsp;&nbsp;</option>
+			<option value="3">Test</option>
+			<option value="4">Code</option>
+		</select>
+		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >Update Chart</button>
+	</div>
+  </fieldset>
