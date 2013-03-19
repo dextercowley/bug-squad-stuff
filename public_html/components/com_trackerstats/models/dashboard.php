@@ -40,6 +40,10 @@ class TrackerstatsModelDashboard extends JModelList
 		// Create a new query object.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
+		$periodList = array(1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR');
+		$periodValue = $periodList[$this->state->get('list.period')];
+
+		$typeList = array(1 => 'Tracker', 2 => 'Test', 3 => 'Code');
 
 		// Select required fields from the categories.
 		$query->select('u.name');
@@ -51,13 +55,18 @@ class TrackerstatsModelDashboard extends JModelList
 		$query->from($db->qn('#__code_activity_detail') . ' AS a');
 		$query->join('LEFT', $db->qn('#__users') . 'AS u ON u.id = a.user_id');
 		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
-		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL -7 DAY))');
+		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
+
+		if ($this->state->get('list.activity_type') > 0)
+		{
+			$query->where('t.activity_type = ' . $db->q($typeList[$this->state->get('list.activity_type')]));
+		}
+
 		$query->order('SUM(t.activity_points) DESC');
 		$query->group('a.user_id');
 
 		return $query;
 	}
-
 
 	/**
 	 * Method to auto-populate the model state.
@@ -74,8 +83,8 @@ class TrackerstatsModelDashboard extends JModelList
 		$params	= JComponentHelper::getParams('com_trackerstats');
 		$this->setState('list.limit', 25);
 		$this->setState('list.start', 0);
-		$this->setState('list.days', $jinput->getInt('list.days', 7));
-		$this->setState('list.activity_type', $jinput->getInt('list.activity_type', 0));
+		$this->setState('list.period', $jinput->getInt('period', 1));
+		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
 	}
 
 } // end of class

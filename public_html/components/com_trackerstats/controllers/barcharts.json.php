@@ -25,13 +25,25 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		$model = $this->getModel('Dashboard', 'TrackerstatsModel');
-
 		$items = $model->getItems();
+		$state = $model->getState();
+
+		$periodType = $state->get('list.period');
+		$activityType = $state->get('list.activity_type');
+
+		$periodTitle = array(1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => 'Year');
+		$periodText = $periodTitle[$periodType];
+
+		$activityTypes = array('All', 'Tracker', 'Test', 'Code');
+		$activityType = $activityTypes[$activityType];
+
+// 		$title = new stdClass();
+		$title = "$activityType Points for Past $periodText";
+
 		$ticks = array();
 		$trackerPoints = array();
 		$testPoints = array();
 		$codePoints = array();
-		$title = new stdClass();
 
 		// Build series arrays in reverse order for the chart
 		$i = count($items);
@@ -52,7 +64,7 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 		$label3->label = 'Code Points';
 		$labels = array($label1, $label2, $label3);
 
-		$title = "Points for Past 30 Days";
+
 
 		// assemble array
 		$return = (array($data, $ticks, $labels, $title));

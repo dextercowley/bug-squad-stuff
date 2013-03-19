@@ -66,13 +66,14 @@ abstract class JHtmlBarchart
 			(function ($){
 				$(document).ready(function (){
     			$('button.dataUpdate').click(function() {
+					$('#" . $containerId . "').empty();
 					// add the form variables to the URL
 					var period = $('#period').val();
 					var type = $('#type').val();
 					var href = $('#" . $urlId . "').attr('href');
-					href = href + '&list.period=' + period + '&list.type=' + type;
+					href = href + '&period=' + period + '&activity_type=' + type;
 					$('#" . $urlId . "').attr('href', href);
-					var updatedBarChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "');
+					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "');
 				});
 				});
 			})(jQuery);

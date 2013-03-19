@@ -43,10 +43,10 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', $jsonSource);
 		</select>
 		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
 		<select id="type" name="type" class="inputbox input-mini" size="1" >
-			<option value="1" selected="selected">All</option>
-			<option value="2">Tracker&nbsp;&nbsp;</option>
-			<option value="3">Test</option>
-			<option value="4">Code</option>
+			<option value="0" selected="selected">All</option>
+			<option value="1">Tracker&nbsp;&nbsp;</option>
+			<option value="2">Test</option>
+			<option value="3">Code</option>
 		</select>
 		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >Update Chart</button>
 	</div>
