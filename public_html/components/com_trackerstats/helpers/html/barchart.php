@@ -27,14 +27,14 @@ abstract class JHtmlBarchart
 	/**
 	 * Method to load the Barchart script to display a bar chart using jQuery and jqPlot
 	 *
-	 * @param   string   $defaultUrl          URL for initial data set
-	 * @param   string   $refreshURL          URL for update data set
+	 * @param   string   $containerID             DOM id of the element where the chart will be rendered
+	 * @param   string   $urlId                   DOM id of the element whose href attribute has the URL to the JSON data
 	 *
 	 * @return  void
 	 *
 	 * @since   2.5
 	 */
-	public static function barchart($containerId, $defaultUrl, $refreshURL)
+	public static function barchart($containerId, $urlId)
 	{
 		// Only load once
 		if (isset(self::$loaded[__METHOD__]))
@@ -57,7 +57,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $defaultUrl . "');
+					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "');
 					});
 			})(jQuery);
 			"
@@ -66,7 +66,7 @@ abstract class JHtmlBarchart
 			(function ($){
 				$(document).ready(function (){
     			$('button.dataUpdate').click(function() {
-					var updatedBarChart = new $.JQPLOTBarchart('" . $containerId . "','" . $refreshURL . "');
+					var updatedBarChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "');
 				});
 				});
 			})(jQuery);

@@ -3,7 +3,10 @@
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  */
 (function ($) {
-	$.JQPLOTBarchart = function(containerId, jsonurl) {
+	$.JQPLOTBarchart = function(containerId, urlId) {
+		// The url for our json data
+		var jsonurl = $("#" + urlId).attr("href");
+
 		var drawjqChart = function(url, tag) {
 			$.ajax({
 				url : url,

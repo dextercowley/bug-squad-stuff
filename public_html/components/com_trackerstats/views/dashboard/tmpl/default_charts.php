@@ -25,11 +25,11 @@ $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
-JHtml::_('barchart.barchart', 'chart', $jsonSource, $jsonSource . '&type=3');
+JHtml::_('barchart.barchart', 'barchart', 'barchart', $jsonSource);
 ?>
 
 <h2>Bug Squad Activity</h2>
-<div id="chart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
+<div id="barchart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
 </br>
 <fieldset class="filters btn-toolbar">
 <h3>Chart Options</h3>
