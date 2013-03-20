@@ -61,7 +61,7 @@ class TrackerstatsModelDashboard extends JModelList
 		if ($this->state->get('list.activity_type') > 0)
 		{
 			$query->where('t.activity_group = ' . $db->q($type));
-			$query->order("SUM(CASE WHEN t.activity_group = " . $db->q($type) . " THEN t.activity_points ELSE 0 END) DESC");
+			$query->order("SUM(CASE WHEN t.activity_group = " . $db->q($type) . " THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) DESC");
 		}
 		else
 		{
