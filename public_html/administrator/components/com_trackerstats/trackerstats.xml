@@ -38,8 +38,7 @@
 			<filename>index.html</filename>
 		</files>
 		<languages folder="admin">
-			<language tag="en-GB">language/en-GB.com_contact.ini</language>
-			<language tag="en-GB">language/en-GB.com_contact.sys.ini</language>
+			<language tag="en-GB">language/en-GB.com_trackerstats.sys.ini</language>
 		</languages>
 	</administration>
 </extension>
