@@ -25,10 +25,9 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<fieldset class="filters">
 
 		<div class="filter-search">
-			<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('COM_CONTENT_'.$this->params->get('filter_field').'_FILTER_LABEL').'&#160;'; ?></label>
-			<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_CONTENT_FILTER_SEARCH_DESC'); ?>" />
+			<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('COM_TRACKERSTATS_RELEASENOTES_FILTER_TITLE').'&#160;'; ?></label>
+			<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_TRACKERSTATS_RELEASENOTES_FILTER_TITLE'); ?>" />
 		</div>
-
 
 		<div class="display-limit">
 			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
@@ -62,18 +61,25 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 					<td class="list-title">
 						<?php echo $note->category;?>
 					</td>
-					<td class="list-title">
-						<?php echo $note->jc_issue_id;?>
-					</td>
 					<td>
 						<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo $note->jc_issue_id; ?>">
-							<?php echo $this->escape($note->title); ?></a>
+							<?php echo $this->escape($note->jc_issue_id); ?></a>
+					</td>
+					<td class="list-title">
+						<?php echo $note->title;?>
 					</td>
 
 				</tr>
 		<?php endforeach; ?>
 		</tbody>
 	</table>
+<?php // Add pagination links ?>
+
+	<div class="pagination">
+		 	<p class="counter">
+				<?php echo $this->pagination->getPagesCounter(); ?>
+			</p>
+		<?php echo $this->pagination->getPagesLinks(); ?>
+	</div>
 
 </form>
-

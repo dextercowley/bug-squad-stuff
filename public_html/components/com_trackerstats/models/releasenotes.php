@@ -53,6 +53,12 @@ class TrackerstatsModelReleasenotes extends JModelList
 				$db->q(substr($this->state->params->get('end_date'),0,10)));
 		$query->where("status_name LIKE '%Fixed in SVN%'");
 
+		if ($this->state->get('list.filter'))
+		{
+			$query->where('i.title LIKE ' . $db->q('%' . $this->state->get('list.filter') . '%'));
+		}
+		$query->order("CASE WHEN ISNULL(m.tag) THEN 'None' ELSE m.tag END ASC");
+
 		return $query;
 	}
 
@@ -90,21 +96,8 @@ class TrackerstatsModelReleasenotes extends JModelList
 		$this->setState('list.filter', JRequest::getString('filter-search'));
 
 		// filter.order
-		$orderCol = $app->getUserStateFromRequest('com_trackerstats.releasenotes.filter_order', 'filter_order', '', 'string');
-		if (!in_array($orderCol, $this->filter_fields)) {
-			$orderCol = "CASE WHEN ISNULL(m.tag) THEN 'None' ELSE m.tag END";
-		}
-		$this->setState('list.ordering', $orderCol);
-
-		$listOrder = $app->getUserStateFromRequest('com_trackerstats.releasenotes.filter_order_Dir',
-				'filter_order_Dir', '', 'cmd');
-		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', ''))) {
-			$listOrder = 'ASC';
-		}
-		$this->setState('list.direction', $listOrder);
-
-		$this->setState('list.limit', 20);
-
+		$limit = $app->getUserStateFromRequest('com_trackerstats.releasenotes.limit', 'limit', $params->get('display_num'), 'uint');
+		$this->setState('list.limit', $limit);
 		$this->setState('list.start', JRequest::getUInt('limitstart', 0));
 	}
 
