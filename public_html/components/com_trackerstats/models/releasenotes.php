@@ -40,35 +40,18 @@ class TrackerstatsModelReleasenotes extends JModelList
 		// Create a new query object.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
-		$periodList = array(1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR');
-		$periodValue = $periodList[$this->state->get('list.period')];
-
-		$typeList = array('All', 'Tracker', 'Test', 'Code');
-		$type = $typeList[$this->state->get('list.activity_type')];
 
 		// Select required fields from the categories.
-		$query->select('u.name');
-		$query->select('SUM(t.activity_points) AS total_points');
-		$query->select("SUM(CASE WHEN t.activity_group = 'Tracker' THEN t.activity_points ELSE 0 END) AS tracker_points");
-		$query->select("SUM(CASE WHEN t.activity_group = 'Test' THEN t.activity_points ELSE 0 END) AS test_points");
-		$query->select("SUM(CASE WHEN t.activity_group = 'Code' THEN t.activity_points ELSE 0 END) AS code_points");
+		$query->select("CASE WHEN ISNULL(m.tag) THEN 'None' ELSE m.tag END as category");
+		$query->select('i.title, i.jc_issue_id, i.close_date');
 
-		$query->from($db->qn('#__code_activity_detail') . ' AS a');
-		$query->join('LEFT', $db->qn('#__users') . 'AS u ON u.id = a.user_id');
-		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
-		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
+		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
+		$query->join('LEFT', $db->qn('#__code_tracker_issue_tag_map') . ' AS m ON i.issue_id = m.issue_id' .
+				' AND m.tag_id IN (39,1,29,44,36,85,11,40,17,82,13,6,35,22,27,21,23,20,49,34,19,25,43,94,88)');
 
-		if ($this->state->get('list.activity_type') > 0)
-		{
-			$query->where('t.activity_group = ' . $db->q($type));
-			$query->order("SUM(CASE WHEN t.activity_group = " . $db->q($type) . " THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) DESC");
-		}
-		else
-		{
-			$query->order("SUM(t.activity_points) DESC");
-		}
-
-		$query->group('a.user_id');
+		$query->where('DATE(close_date) BETWEEN ' . $db->q(substr($this->state->params->get('start_date'),0,10)) . ' AND ' .
+				$db->q(substr($this->state->params->get('end_date'),0,10)));
+		$query->where("status_name LIKE '%Fixed in SVN%'");
 
 		return $query;
 	}
@@ -83,13 +66,46 @@ class TrackerstatsModelReleasenotes extends JModelList
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app	= JFactory::getApplication();
+		$app	= JFactory::getApplication('site');
 		$jinput = $app->input;
-		$params	= JComponentHelper::getParams('com_trackerstats');
-		$this->setState('list.limit', 25);
-		$this->setState('list.start', 0);
-		$this->setState('list.period', $jinput->getInt('period', 1));
-		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
+
+		$params = $app->getParams();
+		$menuParams = new JRegistry;
+
+		if ($menu = $app->getMenu()->getActive()) {
+			$menuParams->loadString($menu->params);
+		}
+
+		$mergedParams = clone $menuParams;
+		$mergedParams->merge($params);
+		$this->setState('params', $mergedParams);
+
+		$user		= JFactory::getUser();
+		// Create a new query object.
+		$db		= $this->getDbo();
+		$query	= $db->getQuery(true);
+		$groups	= implode(',', $user->getAuthorisedViewLevels());
+
+		// Optional filter text
+		$this->setState('list.filter', JRequest::getString('filter-search'));
+
+		// filter.order
+		$orderCol = $app->getUserStateFromRequest('com_trackerstats.releasenotes.filter_order', 'filter_order', '', 'string');
+		if (!in_array($orderCol, $this->filter_fields)) {
+			$orderCol = "CASE WHEN ISNULL(m.tag) THEN 'None' ELSE m.tag END";
+		}
+		$this->setState('list.ordering', $orderCol);
+
+		$listOrder = $app->getUserStateFromRequest('com_trackerstats.releasenotes.filter_order_Dir',
+				'filter_order_Dir', '', 'cmd');
+		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', ''))) {
+			$listOrder = 'ASC';
+		}
+		$this->setState('list.direction', $listOrder);
+
+		$this->setState('list.limit', 20);
+
+		$this->setState('list.start', JRequest::getUInt('limitstart', 0));
 	}
 
 } // end of class
