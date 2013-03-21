@@ -27,15 +27,11 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<div class="filter-search">
 			<label class="filter-search-lbl" for="filter-search"><?php echo JText::_('COM_TRACKERSTATS_RELEASENOTES_FILTER_TITLE').'&#160;'; ?></label>
 			<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_TRACKERSTATS_RELEASENOTES_FILTER_TITLE'); ?>" />
-		</div>
 
-		<div class="display-limit">
-			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&#160;
+			<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
 			<?php echo $this->pagination->getLimitBox(); ?>
 		</div>
 
-		<input type="hidden" name="filter_order" value="" />
-		<input type="hidden" name="filter_order_Dir" value="" />
 		<input type="hidden" name="limitstart" value="" />
 	</fieldset>
 
