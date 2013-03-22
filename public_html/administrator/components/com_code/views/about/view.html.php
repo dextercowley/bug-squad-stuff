@@ -20,7 +20,7 @@ jimport('joomla.application.component.view');
  * @subpackage	com_code
  * @since		1.6
  */
-class CodeViewAbout extends JView
+class CodeViewAbout extends JViewLegacy
 {
 	protected $state;
 

@@ -19,7 +19,7 @@ jimport('joomla.application.component.view');
  * @subpackage	com_code
  * @since		1.6
  */
-class CodeViewProjects extends JView
+class CodeViewProjects extends JViewLegacy
 {
 	protected $items;
 	protected $pagination;

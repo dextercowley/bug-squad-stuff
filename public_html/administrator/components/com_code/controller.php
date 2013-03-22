@@ -20,7 +20,7 @@ jimport('joomla.application.component.controller');
  * @subpackage	com_code
  * @since		1.6
  */
-class CodeController extends JController
+class CodeController extends JControllerLegacy
 {
 	/**
 	 * @var		string	The default view.

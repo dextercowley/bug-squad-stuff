@@ -18,6 +18,6 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_code')) {
 // Include dependancies.
 jimport('joomla.application.component.controller');
 
-$controller	= JController::getInstance('Code');
+$controller	= JControllerLegacy::getInstance('Code');
 $controller->execute(JRequest::getCmd('task'));
 $controller->redirect();
