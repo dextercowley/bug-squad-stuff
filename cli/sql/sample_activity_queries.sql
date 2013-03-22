@@ -103,3 +103,15 @@ AND Date(DATE_ADD(now(), INTERVAL -21 DAY))
  FROM `jos_code_tracker_issues` AS t
 
 WHERE date(t.created_date) > Date(DATE_ADD(now(), INTERVAL -28 DAY))
+
+# Active Users
+SELECT u.name, SUM(t.activity_points) AS total_points
+FROM jos_code_activity_detail AS a
+JOIN jos_code_activity_types AS t
+ON a.activity_type = t.activity_type
+JOIN jos_users AS u
+ON a.user_id = u.id
+WHERE date(a.activity_date) > Date(DATE_ADD(now(), INTERVAL -90 DAY))
+GROUP BY u.id, u.name
+HAVING SUM(t.activity_points) > 20
+ORDER BY u.name ASC

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+	<name>mod_trackerstats_users</name>
+	<author>Joomla! Project</author>
+	<creationDate>March 2013</creationDate>
+	<copyright>Copyright (C) 2013 Mark Dexter. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>admin@joomla.org</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
+	<version>2.5.0</version>
+	<description>MOD_TRACKERSTATS_USERS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_trackerstats_users">mod_trackerstats_users.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>mod_trackerstats_users.xml</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.mod_trackerstats_users.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_trackerstats_users.sys.ini</language>
+	</languages>
+	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_TRACKERSTATS_USERS" />
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="number_days" type="text"
+					filter="integer"
+					default="30"
+					label="MOD_TRACKERSTATS_NUMBER_DAYS_LABEL"
+					description="MOD_TRACKERSTATS_NUMBER_DAYS_DESC"
+				/>
+				<field name="minimum_points" type="text"
+					filter="integer"
+					default="20"
+					label="MOD_TRACKERSTATS_MINIMUM_POINTS_LABEL"
+					description="MOD_TRACKERSTATS_MINIMUM_POINTS_DESC"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
