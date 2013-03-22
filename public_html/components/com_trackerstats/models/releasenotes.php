@@ -47,7 +47,7 @@ class TrackerstatsModelReleasenotes extends JModelList
 
 		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
 		$query->join('LEFT', $db->qn('#__code_tracker_issue_tag_map') . ' AS m ON i.issue_id = m.issue_id' .
-				' AND m.tag_id IN (39,1,29,44,36,85,11,40,17,82,13,6,35,22,27,21,23,20,49,34,19,25,43,94,88)');
+				' AND m.tag_id IN (39,1,29,44,36,85,11,40,17,82,13,6,35,22,27,21,23,20,49,34,19,25,43,94,88,125,112,114)');
 
 		$query->where('DATE(close_date) BETWEEN ' . $db->q(substr($this->state->params->get('start_date'),0,10)) . ' AND ' .
 				$db->q(substr($this->state->params->get('end_date'),0,10)));
