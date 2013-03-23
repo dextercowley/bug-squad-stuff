@@ -3,7 +3,7 @@
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  */
 (function ($) {
-	$.JQPLOTBarchart = function(containerId, urlId) {
+	$.JQPLOTBarchart = function(containerId, urlId, horizontal) {
 		// The url for our json data
 		var jsonurl = $("#" + urlId).attr("href");
 
@@ -30,7 +30,7 @@
 						renderer : $.jqplot.BarRenderer,
 						rendererOptions : {
 							fillToZero : true,
-							barDirection : 'horizontal',
+							barDirection : horizontal,
 							barWidth: 10,
 							barMargin: 1,
 							barPadding: 1,

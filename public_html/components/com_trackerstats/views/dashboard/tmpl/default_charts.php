@@ -23,7 +23,7 @@ $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
-JHtml::_('barchart.barchart', 'barchart', 'barchart', $jsonSource);
+JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 ?>
 
 <h2>Bug Squad Activity</h2>

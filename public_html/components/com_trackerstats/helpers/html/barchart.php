@@ -34,13 +34,15 @@ abstract class JHtmlBarchart
 	 *
 	 * @since   2.5
 	 */
-	public static function barchart($containerId, $urlId)
+	public static function barchart($containerId, $urlId, $horizontal = true)
 	{
 		// Only load once
 		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
+
+		$orientation = ($horizontal == true) ? 'horizontal' : 'vertical';
 
 		// Depends on jQuery UI
 		$document = JFactory::getDocument();
@@ -57,7 +59,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "');
+					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
 					});
 			})(jQuery);
 			"
@@ -73,7 +75,7 @@ abstract class JHtmlBarchart
 					var href = $('#" . $urlId . "').attr('href');
 					href = href + '&period=' + period + '&activity_type=' + type;
 					$('#" . $urlId . "').attr('href', href);
-					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "');
+					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
 				});
 				});
 			})(jQuery);
