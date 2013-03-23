@@ -36,16 +36,11 @@ ORDER BY SUM(t.activity_points) DESC
 # Time series activity by type
 SELECT t.activity_group, 
 SUM(
-CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -7 DAY)) AND Date(now())
+CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -28 DAY)) 
+AND Date(DATE_ADD(now(), INTERVAL -21 DAY)) 
   THEN t.activity_points ELSE 0 END
 )
- AS last_week,
-SUM(
-CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -14 DAY)) 
-AND Date(DATE_ADD(now(), INTERVAL -7 DAY)) 
-  THEN t.activity_points ELSE 0 END
-)
- AS two_weeks_ago,
+ AS four_weeks_ago
 SUM(
 CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -21 DAY)) 
 AND Date(DATE_ADD(now(), INTERVAL -14 DAY)) 
@@ -53,12 +48,17 @@ AND Date(DATE_ADD(now(), INTERVAL -14 DAY))
 )
  AS three_weeks_ago,
 SUM(
-CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -28 DAY)) 
-AND Date(DATE_ADD(now(), INTERVAL -21 DAY)) 
+CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -14 DAY)) 
+AND Date(DATE_ADD(now(), INTERVAL -7 DAY)) 
   THEN t.activity_points ELSE 0 END
 )
- AS four_weeks_ago
- FROM `jos_code_activity_detail` AS a
+ AS two_weeks_ago,
+SUM(
+CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -7 DAY)) AND Date(now())
+  THEN t.activity_points ELSE 0 END
+)
+ AS last_week
+FROM `jos_code_activity_detail` AS a
 JOIN jos_users AS u ON u.id = a.user_id
 JOIN jos_code_activity_types AS t ON t.activity_type = a.activity_type
 WHERE date(a.activity_date) > Date(DATE_ADD(now(), INTERVAL -28 DAY))
@@ -115,3 +115,37 @@ WHERE date(a.activity_date) > Date(DATE_ADD(now(), INTERVAL -90 DAY))
 GROUP BY u.id, u.name
 HAVING SUM(t.activity_points) > 20
 ORDER BY u.name ASC
+
+#Number of active users by time period
+SELECT '4_weeks_ago' AS time_period, COUNT(DISTINCT a.user_id) as users
+,MIN(a.activity_date),MAX(a.activity_date)
+FROM `jos_code_activity_detail` AS a
+WHERE date(a.activity_date) 
+BETWEEN 
+Date(DATE_ADD(now(), INTERVAL -27 DAY)) 
+AND 
+Date(DATE_ADD(now(), INTERVAL -21 DAY))
+UNION
+SELECT '3_weeks_ago' AS time_period, COUNT(DISTINCT a.user_id) as users
+,MIN(a.activity_date),MAX(a.activity_date)
+FROM `jos_code_activity_detail` AS a
+WHERE date(a.activity_date) 
+BETWEEN 
+Date(DATE_ADD(now(), INTERVAL -20 DAY)) 
+AND 
+Date(DATE_ADD(now(), INTERVAL -14 DAY))
+UNION
+SELECT '2_weeks_ago' AS time_period, COUNT(DISTINCT a.user_id) as users
+,MIN(a.activity_date),MAX(a.activity_date)
+FROM `jos_code_activity_detail` AS a
+WHERE date(a.activity_date) 
+BETWEEN 
+Date(DATE_ADD(now(), INTERVAL -13 DAY)) 
+AND 
+Date(DATE_ADD(now(), INTERVAL -7 DAY))
+UNION
+SELECT 'last_week' AS time_period, COUNT(DISTINCT a.user_id) as users
+,MIN(a.activity_date),MAX(a.activity_date)
+FROM `jos_code_activity_detail` AS a
+WHERE date(a.activity_date) > Date(DATE_ADD(now(), INTERVAL -7 DAY))
+
