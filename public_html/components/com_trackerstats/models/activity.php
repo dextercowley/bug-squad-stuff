@@ -34,42 +34,38 @@ class TrackerstatsModelActivity extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		$user = JFactory::getUser();
-		$groups = implode(',', $user->getAuthorisedViewLevels());
-
 		// Create a new query object.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
-		$periodList = array(1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR');
+		$query->select('t.activity_group');
+
+		$periodList = array(1 => 7, 2 => 30, 3 => 90);
+		$periodNames = array(1 => 'Weeks', 2 => 'Months', 3 => 'Quarters');
+		$periodName = $periodNames[$this->state->get('list.period')];
 		$periodValue = $periodList[$this->state->get('list.period')];
+		// Get 12 columns
+		for ($i = 4; $i > 0; $i--)
+		{
+			$startDay = ($i * $periodValue) - 1;
+			$endDay = ($i - 1) * $periodValue;
+			$query->select('SUM(CASE WHEN DATE(a.activity_date) BETWEEN ' .
+					'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) ' .
+					' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY)) THEN t.activity_points ELSE 0 END)' .
+					' AS ' . $i . '_' . $periodName . '_ago');
+		}
 
 		$typeList = array('All', 'Tracker', 'Test', 'Code');
 		$type = $typeList[$this->state->get('list.activity_type')];
 
 		// Select required fields from the categories.
-		$query->select('u.name');
-		$query->select('SUM(t.activity_points) AS total_points');
-		$query->select("SUM(CASE WHEN t.activity_group = 'Tracker' THEN t.activity_points ELSE 0 END) AS tracker_points");
-		$query->select("SUM(CASE WHEN t.activity_group = 'Test' THEN t.activity_points ELSE 0 END) AS test_points");
-		$query->select("SUM(CASE WHEN t.activity_group = 'Code' THEN t.activity_points ELSE 0 END) AS code_points");
-
 		$query->from($db->qn('#__code_activity_detail') . ' AS a');
-		$query->join('LEFT', $db->qn('#__users') . 'AS u ON u.id = a.user_id');
-		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
-		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
-
+		$query->join('INNER', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
+		$query->where('date(a.activity_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
+		$query->group('t.activity_group');
 		if ($this->state->get('list.activity_type') > 0)
 		{
 			$query->where('t.activity_group = ' . $db->q($type));
-			$query->order("SUM(CASE WHEN t.activity_group = " . $db->q($type) . " THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) DESC");
 		}
-		else
-		{
-			$query->order("SUM(t.activity_points) DESC");
-		}
-
-		$query->group('a.user_id');
-
 		return $query;
 	}
 

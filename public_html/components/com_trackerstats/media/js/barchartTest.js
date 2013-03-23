@@ -3,7 +3,7 @@
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  */
 (function ($) {
-	$.JQPLOTBarchart = function(containerId, urlId, barDirection) {
+	$.JQPLOTBarchartTest = function(containerId, urlId, barDirection) {
 		$.jqplot.config.enablePlugins = true;
 		// The url for our json data
 		var jsonurl = $("#" + urlId).attr("href");

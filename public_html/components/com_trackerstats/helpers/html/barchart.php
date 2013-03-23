@@ -85,4 +85,56 @@ abstract class JHtmlBarchart
 		self::$loaded[__METHOD__] = true;
 		return;
 	}
+
+	public static function barchartTest($containerId, $urlId, $horizontal = true)
+	{
+		// Only load once
+		if (isset(self::$loaded[__METHOD__]))
+		{
+			return;
+		}
+
+		$orientation = ($horizontal == true) ? 'horizontal' : 'vertical';
+
+		// Depends on jQuery UI
+		$document = JFactory::getDocument();
+		$document->addScript('components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
+		$document->addScript('components/com_trackerstats/media/js/jquery-noconflict.js', 'text/javascript', false);
+		$document->addScript('components/com_trackerstats/media/js/jquery.jqplot.min.js', 'text/javascript', false);
+		$document->addScript('components/com_trackerstats/media/js/jqplot.barRenderer.min.js', 'text/javascript', true);
+		$document->addScript('components/com_trackerstats/media/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
+		$document->addScript('components/com_trackerstats/media/js/jqplot.pointLabels.min.js', 'text/javascript', true);
+		$document->addScript('components/com_trackerstats/media/js/barchartTest.js', 'text/javascript', true);
+		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery.jqplot.min.css' );
+
+		// Attach sortable to document
+		JFactory::getDocument()->addScriptDeclaration("
+				(function ($){
+				$(document).ready(function (){
+				var barchart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+	});
+	})(jQuery);
+				"
+		);
+		JFactory::getDocument()->addScriptDeclaration("
+				(function ($){
+				$(document).ready(function (){
+				$('button.dataUpdate').click(function() {
+				$('#" . $containerId . "').empty();
+				// add the form variables to the URL
+				var period = $('#period').val();
+				var type = $('#type').val();
+				var href = $('#" . $urlId . "').attr('href');
+				href = href + '&period=' + period + '&activity_type=' + type;
+				$('#" . $urlId . "').attr('href', href);
+				var barChart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+	});
+	});
+	})(jQuery);
+				"
+		);
+		// Set static array
+		self::$loaded[__METHOD__] = true;
+		return;
+	}
 }

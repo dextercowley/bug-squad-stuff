@@ -24,14 +24,20 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-		$model = $this->getModel('Dashboard', 'TrackerstatsModel');
+// 		echo '[[[100,195,325,420],[135,95,270,435],[226,329,455,563]],["P1","P2","P3","P4"],[{"label":"Tracker Points"},{"label":"Test Points"},{"label":"Code Points"}],"Title"]';
+		echo '[[[22,31,85,106],[55,35,5,100],[5,20,85,45]],["David Hurley","marco dings","Elin Waring","Jean-Marie Simonet"],[{"label":"Tracker Points"},{"label":"Test Points"},{"label":"Code Points"}],"All Points for Past 7 Days"]';
+// 		echo '[[[22,55,5],[31,35,20],[85,5,85],[106,100,45]],["David Hurley","marco dings","Elin Waring","Jean-Marie Simonet"],[{"label":"Tracker Points"},{"label":"Test Points"},{"label":"Code Points"}],"All Points for Past 7 Days"]';
+
+		JFactory::getApplication()->close();
+
+		$model = $this->getModel('Activity', 'TrackerstatsModel');
 		$items = $model->getItems();
 		$state = $model->getState();
 
 		$periodType = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = array(1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => '12 Months');
+		$periodTitle = array(1 => 'Week', 2 => 'Month', 3 => 'Quarter');
 		$periodText = $periodTitle[$periodType];
 
 		$activityTypes = array('All', 'Tracker', 'Test', 'Code');
@@ -94,6 +100,7 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 
 		// Send the response.
 		echo json_encode($return);
-		JFactory::getApplication()->close();
+
+
 	}
 }

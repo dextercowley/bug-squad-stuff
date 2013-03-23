@@ -40,7 +40,7 @@ CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -28 DAY))
 AND Date(DATE_ADD(now(), INTERVAL -21 DAY)) 
   THEN t.activity_points ELSE 0 END
 )
- AS four_weeks_ago
+ AS four_weeks_ago,
 SUM(
 CASE WHEN DATE(a.activity_date) BETWEEN Date(DATE_ADD(now(), INTERVAL -21 DAY)) 
 AND Date(DATE_ADD(now(), INTERVAL -14 DAY)) 
