@@ -21,6 +21,19 @@
 				var chartTicks = series[1];
 				var chartLabels = series[2];
 				var title = series[3];
+				
+				// Swap axis if bardirection is horizontal
+				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks};
+				var yaxis = {padMin: 0, pad: 1.05};
+				var barMargin = 50;
+				if (barDirection == 'horizontal')
+					{
+						temp = yaxis;
+						yaxis = xaxis;
+						xaxis = temp;
+						barMargin = 10;
+					}
+				
 				var plot2 = $.jqplot(containerId, chartData, {
 					title : title,
 					stackSeries : true,
@@ -32,9 +45,9 @@
 						rendererOptions : {
 							fillToZero : true,
 							barDirection : barDirection,
-							barWidth: 10,
-							barMargin: 1,
-							barPadding: 1,
+//							barWidth: 10,
+							barMargin: barMargin,
+//							barPadding: 1,
 						},
 						pointLabels: {show: false}
 					},
@@ -56,11 +69,8 @@
 					axes : {
 						// Use a category axis on the x axis and use our custom
 						// ticks.
-						xaxis : {padMin: 0, pad: 1.05},
-						yaxis : {
-							renderer : $.jqplot.CategoryAxisRenderer,
-							ticks : chartTicks
-						}
+						xaxis : xaxis,
+						yaxis : yaxis
 					}
 				});
 			}
