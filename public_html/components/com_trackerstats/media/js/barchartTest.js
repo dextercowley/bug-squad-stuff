@@ -21,48 +21,39 @@
 				var chartTicks = series[1];
 				var chartLabels = series[2];
 				var title = series[3];
+				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks};
+				var yaxis = {padMin: 0, pad: 1.05};
+				if (barDirection == 'horizontal')
+					{
+						temp = yaxis;
+						yaxis = xaxis;
+						xaxis = temp;
+					}
 				var plot2 = $.jqplot(containerId, chartData, {
-					title : title,
-					stackSeries : true,
-					// The "seriesDefaults" option is an options object that
-					// will
-					// be applied to all series in the chart.
-					seriesDefaults : {
-						renderer : $.jqplot.BarRenderer,
-						rendererOptions : {
+		           title: title,
+		           stackSeries: true,
+		            seriesDefaults:{
+		                renderer:$.jqplot.BarRenderer,
+		                pointLabels: { show: false },
+		                rendererOptions : {
 							fillToZero : true,
 							barDirection : barDirection,
-							barWidth: 10,
-							barMargin: 1,
-							barPadding: 1,
+//							barWidth: 50,
+							barMargin: 50,
+//							barPadding: 1,
 						},
-						pointLabels: {show: false}
-					},
-					// Custom labels for the series are specified with the
-					// "label"
-					// option on the series option. Here a series option object
-					// is specified for each series.
-					series : chartLabels,
-					// Show the legend and put it outside the grid, but inside
-					// the
-					// plot container, shrinking the grid to accomodate the
-					// legend.
-					// A value of "outside" would not shrink the grid and allow
-					// the legend to overflow the container.
-					legend : {
+		            },
+		            series : chartLabels,
+		            legend : {
 						show : true,
 						placement : 'outsideGrid'
 					},
-					axes : {
-						// Use a category axis on the x axis and use our custom
-						// ticks.
-						xaxis : {padMin: 0, pad: 1.05},
-						yaxis : {
-							renderer : $.jqplot.CategoryAxisRenderer,
-							ticks : chartTicks
-						}
-					}
-				});
+		            axes: {
+		                xaxis: xaxis,
+		                yaxis: yaxis
+		            },
+		            highlighter: { show: false }
+		        });
 			}
 
 		};
