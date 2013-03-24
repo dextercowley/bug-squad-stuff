@@ -51,8 +51,9 @@ class TrackerstatsModelActivity extends JModelList
 			$query->select('SUM(CASE WHEN DATE(a.activity_date) BETWEEN ' .
 					'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) ' .
 					' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY)) THEN t.activity_points ELSE 0 END)' .
-					' AS ' . $i . '_' . $periodName . '_ago');
+					' AS p' . $i);
 		}
+		$query->select('DATE(NOW()) AS end_date');
 
 		$typeList = array('All', 'Tracker', 'Test', 'Code');
 		$type = $typeList[$this->state->get('list.activity_type')];
@@ -66,6 +67,7 @@ class TrackerstatsModelActivity extends JModelList
 		{
 			$query->where('t.activity_group = ' . $db->q($type));
 		}
+		$query->order('t.activity_group DESC');
 		return $query;
 	}
 

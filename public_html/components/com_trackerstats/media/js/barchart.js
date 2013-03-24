@@ -24,7 +24,7 @@
 				
 				// Swap axis if bardirection is horizontal
 				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks};
-				var yaxis = {padMin: 0, pad: 1.05};
+				var yaxis = {padMin: 0, pad: 1.05,  min:0};
 				var barMargin = 50;
 				if (barDirection == 'horizontal')
 					{
