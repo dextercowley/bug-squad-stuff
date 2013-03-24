@@ -75,30 +75,13 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 		{
 			$label2->label = $types[1] . ' Points';
 			$label3->label = $types[2] . ' Points';
+			$data = array($points[$types[0]], $points[$types[1]], $points[$types[2]]);
+			$labels = array($label1, $label2, $label3);
 		}
-
-		switch ($activityText)
+		else
 		{
-			case 'Tracker':
-				$data = array($points[$types[0]]);
-				$labels = array($label1);
-				break;
-
-			case 'Test':
-				$data = array($points[$types[0]]);
-				$labels = array($label1);
-				break;
-
-			case 'Code':
-				$data = array($points[$types[0]]);
-				$labels = array($label1);
-				break;
-
-			case 'All':
-			default:
-				$data = array($points[$types[0]], $points[$types[1]], $points[$types[2]]);
-				$labels = array($label1, $label2, $label3);
-				break;
+			$data = array($points[$types[0]]);
+			$labels = array($label1);
 		}
 
 		// assemble array
