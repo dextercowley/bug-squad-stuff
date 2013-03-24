@@ -38,12 +38,11 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false);
 			<option value="1" selected="selected">7 Days</option>
 			<option value="2">30 Days&nbsp;&nbsp;</option>
 			<option value="3">90 Days&nbsp;&nbsp;</option>
-			<option value="4">1 Year</option>
 		</select>
 		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
 		<select id="type" name="type" class="inputbox input-mini" size="1" >
-			<option value="0" selected="selected">All</option>
-			<option value="1">Tracker&nbsp;&nbsp;</option>
+			<option value="0" >All</option>
+			<option value="1" selected="selected">Tracker&nbsp;&nbsp;</option>
 			<option value="2">Test</option>
 			<option value="3">Code</option>
 		</select>

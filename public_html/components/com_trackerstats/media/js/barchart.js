@@ -53,7 +53,7 @@
 							barMargin: barMargin,
 //							barPadding: 1,
 						},
-						pointLabels: {show: false}
+						pointLabels: {show: true}
 					},
 					// Custom labels for the series are specified with the
 					// "label"

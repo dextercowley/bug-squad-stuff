@@ -56,10 +56,14 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 		$periodDays = array(7,7,30,90);
 		$dayInterval = $periodDays[$periodType];
 
-		$ticks[] = date('d M y', strtotime($endDate . '-' . ($dayInterval * 3) . ' day'));
-		$ticks[] = date('d M y', strtotime($endDate . '-' . ($dayInterval * 2) . ' day'));
-		$ticks[] = date('d M y', strtotime($endDate . '-' . ($dayInterval * 1) . ' day'));
-		$ticks[] = date('d M y', strtotime($endDate));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 4) - 1) . ' day')) . ' - ' .
+			date('d M', strtotime($endDate . '-' . ($dayInterval * 3) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 3) - 1) . ' day')) . ' - ' .
+				date('d M', strtotime($endDate . '-' . ($dayInterval * 2) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 2) - 1) . ' day')) . ' - ' .
+				date('d M', strtotime($endDate . '-' . ($dayInterval * 1) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 1) - 1) . ' day')) . ' - ' .
+				date('d M', strtotime($endDate . '-' . ($dayInterval * 0) . ' day'));
 
 		$data = array();
 		$label1 = new stdClass();
@@ -67,24 +71,27 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 		$label3 = new stdClass();
 		$types = array_keys($points);
 		$label1->label = $types[0] . ' Points';
-		$label2->label = $types[1] . ' Points';
-		$label3->label = $types[2] . ' Points';
+		if ($activityType === 0)
+		{
+			$label2->label = $types[1] . ' Points';
+			$label3->label = $types[2] . ' Points';
+		}
 
 		switch ($activityText)
 		{
 			case 'Tracker':
-				$data = array($trackerPoints);
+				$data = array($points[$types[0]]);
 				$labels = array($label1);
 				break;
 
 			case 'Test':
-				$data = array($testPoints);
-				$labels = array($label2);
+				$data = array($points[$types[0]]);
+				$labels = array($label1);
 				break;
 
 			case 'Code':
-				$data = array($codePoints);
-				$labels = array($label3);
+				$data = array($points[$types[0]]);
+				$labels = array($label1);
 				break;
 
 			case 'All':
@@ -95,7 +102,7 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 		}
 
 		// assemble array
-		$return = array($data, $ticks, $labels, $title, $axisLableText . ' Ending');
+		$return = array($data, $ticks, $labels, $title);
 
 		// Use the correct json mime-type
 		header('Content-Type: application/json');
