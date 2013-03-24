@@ -21,9 +21,13 @@
 				var chartTicks = series[1];
 				var chartLabels = series[2];
 				var title = series[3];
+				var axisLabel = '';
+				if (series.length == 5) {
+					axisLabel = series[4];
+				}
 				
 				// Swap axis if bardirection is horizontal
-				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks};
+				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks, label: axisLabel};
 				var yaxis = {padMin: 0, pad: 1.05,  min:0};
 				var barMargin = 50;
 				if (barDirection == 'horizontal')

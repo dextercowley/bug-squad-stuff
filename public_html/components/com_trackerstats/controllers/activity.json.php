@@ -32,7 +32,9 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 		$activityType = $state->get('list.activity_type');
 
 		$periodTitle = array(1 => 'Weeks', 2 => 'Months', 3 => 'Quarters');
+		$axisLabels = array('None', 'Week', '30 Days', '90 Days');
 		$periodText = $periodTitle[$periodType];
+		$axisLableText = $axisLabels[$periodType];
 
 		$activityTypes = array('All', 'Tracker', 'Test', 'Code');
 		$activityText = $activityTypes[$activityType];
@@ -93,7 +95,7 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 		}
 
 		// assemble array
-		$return = array($data, $ticks, $labels, $title);
+		$return = array($data, $ticks, $labels, $title, $axisLableText . ' Ending');
 
 		// Use the correct json mime-type
 		header('Content-Type: application/json');
