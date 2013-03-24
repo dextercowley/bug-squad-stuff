@@ -26,11 +26,10 @@ $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=activity
 JHtml::_('barchart.barchart', 'barchart', 'barchart', false);
 ?>
 
-<h2>Bug Squad Activity</h2>
+<h2>Total Bug Squad Activity By Type</h2>
 <div id="barchart" style="width:600px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
-</br>
-<a href="<?php echo $jsonSource; ?>">See Data</a>
 <fieldset class="filters btn-toolbar">
+</br>
 <h3>Chart Options</h3>
 	<div class="btn-group pull-right">
 		<label for="period" class="element-invisible">Period</label>
@@ -41,8 +40,8 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false);
 		</select>
 		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
 		<select id="type" name="type" class="inputbox input-mini" size="1" >
-			<option value="0" >All</option>
-			<option value="1" selected="selected">Tracker&nbsp;&nbsp;</option>
+			<option value="0" selected="selected">All</option>
+			<option value="1">Tracker&nbsp;&nbsp;</option>
 			<option value="2">Test</option>
 			<option value="3">Code</option>
 		</select>
