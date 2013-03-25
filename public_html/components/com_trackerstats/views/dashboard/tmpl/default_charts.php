@@ -47,12 +47,12 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 			<option value="4">1 Year</option>
 			<option value="5">Custom Period&nbsp;&nbsp;</option>
 		</select>
-		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
+
 	</div>
-	<div></br>
-	<label for="datepicker" class="element-invisible">Start Date</label>
-	<input id="datepicker" class="datepicker" type="text" />
+	</br>
+	<label for="start_date" class="element-invisible">Start Date</label>
+	<input id="start_date" class="datepicker" type="text" />
 	<label for="end_date" class="element-invisible">End Date</label>
 	<input id="end_date" class="datepicker" type="text" />
-	</div>
+			&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
   </fieldset>

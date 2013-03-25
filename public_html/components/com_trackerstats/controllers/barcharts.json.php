@@ -31,12 +31,21 @@ class TrackerstatsControllerBarcharts extends JControllerLegacy
 		$periodType = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = array(1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => '12 Months');
+		$periodTitle = array(1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => '12 Months', 5 => 'Custom');
 		$periodText = $periodTitle[$periodType];
 
 		$activityTypes = array('All', 'Tracker', 'Test', 'Code');
 		$activityText = $activityTypes[$activityType];
-		$title = "$activityText Points for Past $periodText";
+		if ($periodType == 5)
+		{
+			$start = date('d M Y', strtotime($state->get('list.startdate')));
+			$end = date('d M Y', strtotime($state->get('list.enddate')));
+			$title = $activityText . ' Points From ' . $start . ' Through ' . $end;
+		}
+		else
+		{
+			$title = "$activityText Points for Past $periodText";
+		}
 
 		$ticks = array();
 		$trackerPoints = array();

@@ -75,7 +75,13 @@ abstract class JHtmlBarchart
 					var period = $('#period').val();
 					var type = $('#type').val();
 					var href = $('#" . $urlId . "').attr('href');
+					var startdate = $('#start_date').val();
+					var enddate = $('#end_date').val();
 					href = href + '&period=' + period + '&activity_type=' + type;
+					if (period == 5)
+					{
+						href = href + '&startdate=' + startdate + '&enddate=' + enddate;
+					}
 					$('#" . $urlId . "').attr('href', href);
 					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
 				});

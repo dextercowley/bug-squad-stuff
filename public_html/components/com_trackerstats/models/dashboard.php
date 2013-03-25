@@ -40,7 +40,7 @@ class TrackerstatsModelDashboard extends JModelList
 		// Create a new query object.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
-		$periodList = array(1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR');
+		$periodList = array(1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR', 5=> 'Custom');
 		$periodValue = $periodList[$this->state->get('list.period')];
 
 		$typeList = array('All', 'Tracker', 'Test', 'Code');
@@ -56,7 +56,15 @@ class TrackerstatsModelDashboard extends JModelList
 		$query->from($db->qn('#__code_activity_detail') . ' AS a');
 		$query->join('LEFT', $db->qn('#__users') . 'AS u ON u.id = a.user_id');
 		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
-		$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
+
+		if ($periodValue == 'Custom')
+		{
+			$query->where('DATE(a.activity_date) BETWEEN ' . $db->q($this->state->get('list.startdate')) . ' AND ' . $db->q($this->state->get('list.enddate')));
+		}
+		else
+		{
+			$query->where('DATE(a.activity_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
+		}
 
 		if ($this->state->get('list.activity_type') > 0)
 		{
@@ -90,6 +98,41 @@ class TrackerstatsModelDashboard extends JModelList
 		$this->setState('list.start', 0);
 		$this->setState('list.period', $jinput->getInt('period', 1));
 		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
+		$enteredPeriod = $jinput->getInt('period', 1);
+		if ($enteredPeriod == 5)
+		{
+			$startDate = $jinput->getCmd('startdate');
+			$endDate = $jinput->getCmd('enddate');
+			if ($this->datesValid($startDate, $endDate))
+			{
+				$this->setState('list.startdate', $startDate);
+				$this->setState('list.enddate', $endDate);
+			}
+			else
+			{
+				$enteredPeriod = 1;
+			}
+		}
+		$this->setState('list.period', $enteredPeriod);
+	}
+
+	/**
+	 * Method to check that custom dates are valid
+	 *
+	 */
+	protected function datesValid($date1, $date2)
+	{
+		// check that they are dates and that $date1 <= $date2
+		if (($date1 == date('Y-m-d', strtotime($date1))) && ($date2 == date('Y-m-d', strtotime($date2)))
+				&& ($date1 <= $date2))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
 	}
 
 } // end of class
