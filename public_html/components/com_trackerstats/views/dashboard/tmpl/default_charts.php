@@ -32,13 +32,6 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 <fieldset class="filters btn-toolbar">
 <h3>Chart Options</h3>
 	<div class="btn-group pull-right">
-		<label for="period" class="element-invisible">Period</label>
-		<select id="period" name="period" class="inputbox input-mini" size="1" >
-			<option value="1" selected="selected">7 Days</option>
-			<option value="2">30 Days&nbsp;&nbsp;</option>
-			<option value="3">90 Days&nbsp;&nbsp;</option>
-			<option value="4">1 Year</option>
-		</select>
 		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
 		<select id="type" name="type" class="inputbox input-mini" size="1" >
 			<option value="0" selected="selected">All</option>
@@ -46,6 +39,20 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 			<option value="2">Test</option>
 			<option value="3">Code</option>
 		</select>
+		<label for="period" class="element-invisible">Period</label>
+		<select id="period" name="period" class="inputbox input-mini" size="1" >
+			<option value="1" selected="selected">7 Days</option>
+			<option value="2">30 Days</option>
+			<option value="3">90 Days</option>
+			<option value="4">1 Year</option>
+			<option value="5">Custom Period&nbsp;&nbsp;</option>
+		</select>
 		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
+	</div>
+	<div></br>
+	<label for="datepicker" class="element-invisible">Start Date</label>
+	<input id="datepicker" class="datepicker" type="text" />
+	<label for="end_date" class="element-invisible">End Date</label>
+	<input id="end_date" class="datepicker" type="text" />
 	</div>
   </fieldset>

@@ -53,7 +53,9 @@ abstract class JHtmlBarchart
 		$document->addScript('components/com_trackerstats/media/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.pointLabels.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/barchart.js', 'text/javascript', true);
+		$document->addScript('components/com_trackerstats/media/js/jquery-ui-1.10.2.custom.min.js', 'text/javascript', true);
 		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery.jqplot.min.css' );
+		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery-ui-1.10.2.custom.min.css' );
 
 		// Attach sortable to document
 		JFactory::getDocument()->addScriptDeclaration("
@@ -80,6 +82,27 @@ abstract class JHtmlBarchart
 				});
 			})(jQuery);
 			"
+		);
+		JFactory::getDocument()->addScriptDeclaration("
+		/*
+		 * jQuery UI Datepicker: Parse and Format Dates
+		 * http://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
+		 */
+		(function($) {
+			$(document).ready(function (){
+			$('.datepicker').datepicker({
+				dateFormat: 'yy-mm-dd',
+				onSelect: function(dateText, inst) {
+					var date = $.datepicker.parseDate(inst.settings.dateFormat || $.datepicker._defaults.dateFormat, dateText, inst.settings);
+					var dateText1 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
+					date.setDate(date.getDate() + 7);
+					var dateText2 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
+					$('#dateoutput').html('Chosen date is <b>' + dateText1 + '</b>; chosen date + 7 days yields <b>' + dateText2 + '</b>');
+				}
+			});
+		});
+		})(jQuery);
+		"
 		);
 		// Set static array
 		self::$loaded[__METHOD__] = true;
