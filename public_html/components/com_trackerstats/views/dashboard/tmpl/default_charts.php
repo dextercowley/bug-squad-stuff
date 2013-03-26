@@ -24,6 +24,24 @@ $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
 JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
+JFactory::getDocument()->addScriptDeclaration("
+	(function ($){
+		$(document).ready(function (){
+			$('#hidedates').hide();
+			$('#period').change(function() {
+				if ($(this).val() == 5)
+				{
+					$('#hidedates').show();
+				}
+				else
+				{
+					$('#hidedates').hide();
+				}
+			});
+		});
+	})(jQuery);
+		"
+);
 ?>
 
 <h2>Bug Squad Activity</h2>
@@ -47,12 +65,14 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 			<option value="4">1 Year</option>
 			<option value="5">Custom Period&nbsp;&nbsp;</option>
 		</select>
-
+		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
 	</div>
 	</br>
+	<div id="hidedates">
 	<label for="start_date" class="element-invisible">Start Date</label>
 	<input id="start_date" class="datepicker" type="text" />
 	<label for="end_date" class="element-invisible">End Date</label>
 	<input id="end_date" class="datepicker" type="text" />
-			&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
+	</div>
+
   </fieldset>
