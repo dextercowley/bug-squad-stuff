@@ -477,13 +477,7 @@ class CodeTableUser extends JTable
 
 		if ($key)
 		{
-			// Update the user record.
-			if (!$this->_db->updateObject($this->_tbl, $core, $this->_tbl_key, $updateNulls))
-			{
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
-
+			// Only process extended table, not #__users
 			// Determine if the extended table has a row.
 			$this->_db->setQuery(
 				'SELECT user_id' .
@@ -500,61 +494,14 @@ class CodeTableUser extends JTable
 				$ret = $this->_db->insertObject('#__code_users', $extd, 'user_id');
 			}
 
-
-			/*
-			 * Synchronize ACL relationships for the user.
-			 */
-			$groups = JAccess::getGroupsByUser($core->id);
-
-			if (!in_array(2, $groups)) {
-				$this->_db->setQuery(
-					'REPLACE INTO #__user_usergroup_map (user_id, group_id)' .
-					' VALUES' .
-					' ('.(int) $core->id.', 2)'
-				);
-				if (!$this->_db->query())
-				{
-					$this->setError($this->_db->getErrorMsg());
-					return false;
-				}
-			}
-			/*
-			 * End ACL Synchronization.
-			 */
 		}
 		else
 		{
-			// Insert the new user record.
-			if (!$this->_db->insertObject($this->_tbl, $core, $this->_tbl_key))
-			{
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
-			// Update the primary key.
-			else {
-				$this->$k = $core->$k;
-			}
-
+			$this->$k = $core->$k;
+			// Only process the #__code_users table
 			// Set the primary key and insert the extended data record.
 			$extd->user_id = $core->id;
 			$ret = $this->_db->insertObject('#__code_users', $extd, 'user_id');
-
-			/*
-			 * Synchronize ACL relationships for the user.
-			 */
-			$this->_db->setQuery(
-				'REPLACE INTO #__user_usergroup_map (user_id, group_id)' .
-				' VALUES' .
-				' ('.(int) $core->id.', 2)'
-			);
-			if (!$this->_db->query())
-			{
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
-			/*
-			 * End ACL Synchronization.
-			 */
 		}
 
 		if(!$ret)
