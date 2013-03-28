@@ -205,8 +205,6 @@ class CodeModelTrackerSync extends JModel
 		// Initialize variables.
 		$username = JFactory::getConfig()->get('gforgeLogin');
 		$password = JFactory::getConfig()->get('gforgePassword');
-// 		$username = 'dextercowley';
-// 		$password = '';
 		$project  = 5; // Joomla project id.
 
 		// Connect to the main SOAP interface.
@@ -294,7 +292,8 @@ class CodeModelTrackerSync extends JModel
 //			$this->_syncTrackerItem($items[8], $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
 		JLog::add('Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
 		$logMessage = 'Issues: ' . $this->processingTotals['issues'] . ';  Changes: ' . $this->processingTotals['changes'] . ';';
-		$logMessage .= '  Files: ' . $this->processingTotals['files'] . ';  Messages: ' . $this->processingTotals['messages'] . ';';
+		$logMessage .= '  Files: ' . $this->processingTotals['files'] . ';  Messages: ' . $this->processingTotals['messages'] . ' ;';
+		$logMessage .= '  Users: ' . $this->processingTotals['users'] . ' ;';
 		JLog::add($logMessage);
 		return true;
 	}
@@ -1043,7 +1042,7 @@ class CodeModelTrackerSync extends JModel
 				$this->setError($table->getError());
 				return false;
 			}
-
+			$this->processingTotals['users']++;
 			$users[$table->jc_user_id] = (int) $table->id;
 		}
 
