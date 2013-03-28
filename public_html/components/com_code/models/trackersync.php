@@ -272,6 +272,8 @@ class CodeModelTrackerSync extends JModel
 		$cutoffDate = new DateTime("now");
 		$cutoffDate->sub(new DateInterval('P1Y'));
 
+		$totalCount = count($items);
+
 		// Sync each tracker item.
 		foreach ($items as $item)
 		{
@@ -287,7 +289,8 @@ class CodeModelTrackerSync extends JModel
 				$processedCount++;
 			}
 			$total = $skippedCount + $processedCount;
-// 			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total: $total\n";
+// 			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total read: $total of $totalCount\n";
+// 			echo "Users Processed: " . $this->processingTotals['users'] . "\n";
 		}
 //			$this->_syncTrackerItem($items[8], $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
 		JLog::add('Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
