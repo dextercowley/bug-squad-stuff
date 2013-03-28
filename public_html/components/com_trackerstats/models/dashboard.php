@@ -47,14 +47,14 @@ class TrackerstatsModelDashboard extends JModelList
 		$type = $typeList[$this->state->get('list.activity_type')];
 
 		// Select required fields from the categories.
-		$query->select('u.name');
+		$query->select('CONCAT(u.first_name, " ", u.last_name) AS name');
 		$query->select('SUM(t.activity_points) AS total_points');
 		$query->select("SUM(CASE WHEN t.activity_group = 'Tracker' THEN t.activity_points ELSE 0 END) AS tracker_points");
 		$query->select("SUM(CASE WHEN t.activity_group = 'Test' THEN t.activity_points ELSE 0 END) AS test_points");
 		$query->select("SUM(CASE WHEN t.activity_group = 'Code' THEN t.activity_points ELSE 0 END) AS code_points");
 
 		$query->from($db->qn('#__code_activity_detail') . ' AS a');
-		$query->join('LEFT', $db->qn('#__users') . 'AS u ON u.id = a.user_id');
+		$query->join('LEFT', $db->qn('#__code_users') . 'AS u ON u.user_id = a.user_id');
 		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
 
 		if ($periodValue == 'Custom')
