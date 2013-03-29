@@ -28,23 +28,25 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false);
 
 <h2>Total Bug Squad Activity By Type</h2>
 <div id="barchart" style="width:600px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
-<fieldset class="filters btn-toolbar">
+
 </br>
 <h3>Chart Options</h3>
-	<div class="btn-group pull-right">
-		<label for="period" class="element-invisible">Period</label>
-		<select id="period" name="period" class="inputbox input-mini" size="1" >
+
+<div class="form-inline">
+<fieldset>
+		<label>Period</label>
+		<select id="period" name="period" class="input-small" size="1" >
 			<option value="1" selected="selected">7 Days</option>
-			<option value="2">30 Days&nbsp;&nbsp;</option>
-			<option value="3">90 Days&nbsp;&nbsp;</option>
+			<option value="2">30 Days</option>
+			<option value="3">90 Days</option>
 		</select>
-		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
-		<select id="type" name="type" class="inputbox input-mini" size="1" >
+		<label>Type</label>
+		<select id="type" name="type" class="input-small" size="1" >
 			<option value="0" selected="selected">All</option>
-			<option value="1">Tracker&nbsp;&nbsp;</option>
+			<option value="1">Tracker</option>
 			<option value="2">Test</option>
 			<option value="3">Code</option>
 		</select>
-		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
-	</div>
-  </fieldset>
+		<button class="button" id="dataUpdate" >Update Chart</button>
+</fieldset>
+</div>

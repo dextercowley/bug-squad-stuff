@@ -46,8 +46,9 @@ abstract class JHtmlBarchart
 
 		// Depends on jQuery UI
 		$document = JFactory::getDocument();
-		$document->addScript('components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
-		$document->addScript('components/com_trackerstats/media/js/jquery-noconflict.js', 'text/javascript', false);
+		JHtml::_('bootstrap.framework');
+//		$document->addScript('components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
+//		$document->addScript('components/com_trackerstats/media/js/jquery-noconflict.js', 'text/javascript', false);
 		$document->addScript('components/com_trackerstats/media/js/jquery.jqplot.min.js', 'text/javascript', false);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.barRenderer.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
@@ -69,7 +70,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-    			$('button.dataUpdate').click(function() {
+    			$('#dataUpdate').click(function() {
 					$('#" . $containerId . "').empty();
 					// add the form variables to the URL
 					var period = $('#period').val();
