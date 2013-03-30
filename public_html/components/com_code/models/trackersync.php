@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 // Include dependancies.
-jimport('joomla.application.component.model');
+
 jimport('joomla.utilities.arrayhelper');
 
 // Include the GForge connector classes.
@@ -24,7 +24,7 @@ require JPATH_COMPONENT.'/helpers/gforgelegacy.php';
  * @subpackage	com_code
  * @since		1.0
  */
-class CodeModelTrackerSync extends JModel
+class CodeModelTrackerSync extends JModelLegacy
 {
 	/**
 	 * @var    GForge  The GForge SOAP connector object.

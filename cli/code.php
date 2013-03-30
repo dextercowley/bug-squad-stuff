@@ -1,7 +1,7 @@
 #! /usr/local/bin/php -c /usr/local/lib/php-no-xcache -v
 <?php
 define( '_JEXEC', 1 );
-define('JPATH_BASE', 'c:\xampp\htdocs\joomla_development\devj-cli-sync\public_html');
+define('JPATH_BASE', 'c:\xampp\htdocs\joomla_development\devj-cli-30-test\public_html');
 //define('JPATH_BASE', '/Users/louis/Sites/joomla/developer');
 define( 'DS', DIRECTORY_SEPARATOR );
 
@@ -37,6 +37,7 @@ jimport('joomla.utilities.string');
 jimport('joomla.plugin.helper');
 jimport('joomla.utilities.date');
 jimport('joomla.log.log');
+jimport('legacy.error.error');
 
 // Load the configuration file
 require_once(JPATH_CONFIGURATION.DS.'configuration.php');

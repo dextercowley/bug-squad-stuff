@@ -10,14 +10,14 @@
 defined('_JEXEC') or die;
 
 // Include dependancies.
-jimport('joomla.application.component.model');
+jimport('legacy.model.legacy');
 jimport('joomla.database.table');
 
 // Define the component path.
 defined('JPATH_COMPONENT') OR define('JPATH_COMPONENT', realpath(JPATH_BASE.'/components/com_code'));
 
 // Set the include paths for com_code models and tables.
-JModel::addIncludePath(realpath(JPATH_BASE.'/components/com_code/models'));
+JModelLegacy::addIncludePath(realpath(JPATH_BASE.'/components/com_code/models'));
 JTable::addIncludePath(realpath(JPATH_BASE.'/administrator/components/com_code/tables'));
 
 /**
@@ -36,7 +36,7 @@ class TrackerSyncMethod
 	public function run($limit)
 	{
 		// Get the tracker sync model.
-		$model = JModel::getInstance('TrackerSync', 'CodeModel');
+		$model = JModelLegacy::getInstance('TrackerSync', 'CodeModel');
 
 		// Run the syncronization routine.
 		$model->sync();
