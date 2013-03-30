@@ -274,7 +274,7 @@ CREATE TABLE `jos_code_trackers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jos_code_users` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL auto_increment,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `address` varchar(512) NOT NULL,

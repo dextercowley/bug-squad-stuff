@@ -490,17 +490,17 @@ class CodeTableUser extends JTable
 			}
 			// If the extended record does not exist insert it.
 			else {
-				$extd->user_id = $core->id;
+				$extd->user_id = 0;
 				$ret = $this->_db->insertObject('#__code_users', $extd, 'user_id');
 			}
 
 		}
 		else
 		{
-			$this->$k = $core->$k;
+			$this->$k = 0;
 			// Only process the #__code_users table
 			// Set the primary key and insert the extended data record.
-			$extd->user_id = $core->id;
+			$extd->user_id = 0;
 			$ret = $this->_db->insertObject('#__code_users', $extd, 'user_id');
 		}
 
