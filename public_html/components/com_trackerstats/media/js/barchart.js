@@ -50,7 +50,7 @@
 							fillToZero : true,
 							barDirection : barDirection,
 //							barWidth: 10,
-							barMargin: barMargin,
+							barMargin: barMargin
 //							barPadding: 1,
 						},
 						pointLabels: {show: false}

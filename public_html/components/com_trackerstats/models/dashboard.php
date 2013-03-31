@@ -1,6 +1,5 @@
 <?php
 /**
- * @version		$Id: category.php 287 2011-11-11 23:13:33Z dextercowley $
  * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -54,7 +53,7 @@ class TrackerstatsModelDashboard extends JModelList
 		$query->select("SUM(CASE WHEN t.activity_group = 'Code' THEN t.activity_points ELSE 0 END) AS code_points");
 
 		$query->from($db->qn('#__code_activity_detail') . ' AS a');
-		$query->join('LEFT', $db->qn('#__code_users') . 'AS u ON u.user_id = a.user_id');
+		$query->join('LEFT', $db->qn('#__code_users') . 'AS u ON u.jc_user_id = a.jc_user_id');
 		$query->join('LEFT', $db->qn('#__code_activity_types') . ' AS t ON a.activity_type = t.activity_type');
 
 		if ($periodValue == 'Custom')
@@ -76,7 +75,7 @@ class TrackerstatsModelDashboard extends JModelList
 			$query->order("SUM(t.activity_points) DESC");
 		}
 
-		$query->group('a.user_id');
+		$query->group('a.jc_user_id');
 
 		return $query;
 	}
