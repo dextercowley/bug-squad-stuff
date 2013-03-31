@@ -100,8 +100,8 @@ class TrackerstatsModelDashboard extends JModelList
 		$enteredPeriod = $jinput->getInt('period', 1);
 		if ($enteredPeriod == 5)
 		{
-			$startDate = $jinput->getCmd('startdate');
-			$endDate = $jinput->getCmd('enddate');
+			$startDate = $jinput->getCmd('start_date');
+			$endDate = $jinput->getCmd('end_date');
 			if ($this->datesValid($startDate, $endDate))
 			{
 				$this->setState('list.startdate', $startDate);

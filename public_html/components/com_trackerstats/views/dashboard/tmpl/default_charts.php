@@ -15,13 +15,21 @@ JHtml::_('behavior.tooltip');
 
 $chartType = $this->state->get('list.activity_type');
 $chartPeriod = $this->state->get('list.period');
+$startDate = $this->state->get('list.startdate');
+$endDate = $this->state->get('list.enddate');
 $typeSelected = array('', '', '', '');
 $periodSelected = array('', '', '', '', '', '');
 $typeSelected[$chartType] = 'selected="selected"';
 $periodSelected[$chartPeriod] = 'selected="selected"';
 
+
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json&type=' . $chartType . '&period=' . $chartPeriod;
+if ($chartPeriod == 5)
+{
+	$jsonSource .= '&startdate=' . $startDate . '&enddate=' . $endDate;
+}
+
 JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 JFactory::getDocument()->addScriptDeclaration("
 	(function ($){
@@ -77,4 +85,4 @@ JFactory::getDocument()->addScriptDeclaration("
 	</div>
 
   </fieldset>
-  </div>
+  </form>
