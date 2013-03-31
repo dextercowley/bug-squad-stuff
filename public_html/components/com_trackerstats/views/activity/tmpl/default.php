@@ -1,6 +1,5 @@
 <?php
 /**
- * @version		$Id: default.php 272 2011-08-11 00:32:05Z dextercowley $
  * @package		Joomla.Site
  * @subpackage	com_trackerstats
  * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
@@ -11,6 +10,7 @@
 defined('_JEXEC') or die;
 
 ?>
+
 <div class="trackerstats-dashboard<?php echo $this->pageclass_sfx;?>">
 <?php if ($this->params->def('show_page_heading', 1)) : ?>
 <h1>

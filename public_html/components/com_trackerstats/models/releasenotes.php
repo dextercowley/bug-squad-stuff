@@ -1,6 +1,5 @@
 <?php
 /**
- * @version		$Id: category.php 287 2011-11-11 23:13:33Z dextercowley $
  * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
