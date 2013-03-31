@@ -275,24 +275,28 @@ class CodeModelTrackerSync extends JModelLegacy
 		$totalCount = count($items);
 
 		// Sync each tracker item.
-		foreach ($items as $item)
+		for ($i = 0; $i < $totalCount; $i++)
 		{
+			$total = $i + 1;
+			// echo 'Processing row ' . $total . ' of ' . $totalCount . ', tracker_item_id=' . $item->tracker_item_id . " ...";
+			$item = $items[$i];
 			// Exclude items closed > 1 year
 			$closeDate = new DateTime($item->close_date);
 			if (isset($item->close_date) && $closeDate < $cutoffDate)
 			{
+				// echo "Skipping item closed > 1 year\n";
 				$skippedCount++;
 			}
 			else
 			{
+				// echo "Processing item...";
 				$this->_syncTrackerItem($item, $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
 				$processedCount++;
 			}
-			$total = $skippedCount + $processedCount;
+
 // 			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total read: $total of $totalCount\n";
-// 			echo "Users Processed: " . $this->processingTotals['users'] . "\n";
 		}
-//			$this->_syncTrackerItem($items[8], $tracker->tracker_id, $tracker->project_id, $table->tracker_id, $table->project_id);
+
 		JLog::add('Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
 		$logMessage = 'Issues: ' . $this->processingTotals['issues'] . ';  Changes: ' . $this->processingTotals['changes'] . ';';
 		$logMessage .= '  Files: ' . $this->processingTotals['files'] . ';  Messages: ' . $this->processingTotals['messages'] . ' ;';
@@ -380,6 +384,7 @@ class CodeModelTrackerSync extends JModelLegacy
 
 		// No need to process an issue that hasn't changed.
 		if (!empty($exists->status) && !empty($exists->issue_id) && ($exists->modified_date == $item->last_modified_date)) {
+			// echo "Nothing changed: $exists->jc_issue_id\n";
 			return true;
 		}
 
@@ -797,7 +802,7 @@ class CodeModelTrackerSync extends JModelLegacy
 				$this->setError($table->getError());
 				return false;
 			}
-			if (!$this->_addActivity(3, $data['jc_issue_id'], $users[$change->user_id], $data['jc_issue_id'], $data['change_date']))
+			if (!$this->_addActivity(3, $data['jc_issue_id'], $data['jc_change_by'], $data['jc_issue_id'], $data['change_date']))
 			{
 				return false;
 			}
@@ -898,6 +903,7 @@ class CodeModelTrackerSync extends JModelLegacy
 				return false;
 			}
 			$this->processingTotals['files']++;
+			// echo "processing files for jc_issue_id: $data->jc_issue_id\n";
 		}
 		return true;
 	}
@@ -1047,6 +1053,7 @@ class CodeModelTrackerSync extends JModelLegacy
 			}
 			$this->processingTotals['users']++;
 			$users[$table->jc_user_id] = (int) $table->id;
+			// echo "adding user=" . $table->jc_user_id . "\n";
 		}
 
 		return $users;
@@ -1142,7 +1149,7 @@ class CodeModelTrackerSync extends JModelLegacy
 
 		$query = 'INSERT IGNORE INTO #__code_activity_detail SET activity_type = ' . (int) $type .
 		', activity_xref_id = ' . (int) $xref .
-		', user_id = ' . (int) $userId .
+		', jc_user_id = ' . (int) $userId .
 		', jc_issue_id = ' . (int) $issueId .
 		', activity_date = ' . $db->quote($date);
 
@@ -1152,18 +1159,19 @@ class CodeModelTrackerSync extends JModelLegacy
 			$this->setError($db->getErrorMsg());
 			return false;
 		}
+		// echo "added activity type: $type:$userId:$issueID:$date\n";
 		return true;
 	}
 
 	private function _addCreateActivities($data)
 	{
-		if (!$this->_addActivity(1, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+		if (!$this->_addActivity(1, $data['jc_issue_id'], $data['jc_created_by'], $data['jc_issue_id'], $data['created_date']))
 		{
 			return false;
 		}
 		if (strpos($data['description'], "/pull/") !== false)
 		{
-			if (!$this->_addActivity(7, $data['jc_issue_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			if (!$this->_addActivity(7, $data['jc_issue_id'], $data['jc_created_by'], $data['jc_issue_id'], $data['created_date']))
 			{
 				return false;
 			}
@@ -1175,7 +1183,7 @@ class CodeModelTrackerSync extends JModelLegacy
 	{
 		if (strpos($data['name'], 'diff') !== false || strpos($data['name'], 'patch') !== false)
 		{
-			if (!$this->_addActivity(5, $data['jc_file_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			if (!$this->_addActivity(5, $data['jc_file_id'], $data['jc_created_by'], $data['jc_issue_id'], $data['created_date']))
 			{
 				return false;
 			}
@@ -1185,20 +1193,20 @@ class CodeModelTrackerSync extends JModelLegacy
 
 	private function _addCommentActivity($data)
 	{
-		if (!$this->_addActivity(2, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+		if (!$this->_addActivity(2, $data['jc_response_id'], $data['jc_created_by'], $data['jc_issue_id'], $data['created_date']))
 		{
 			return false;
 		}
 		if (strpos($data['body'], "/pull/") !== false || strpos($data['body'], "/compare/") !== false || strpos($data['body'], ".diff") !== false)
 		{
-			if (!$this->_addActivity(6, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			if (!$this->_addActivity(6, $data['jc_response_id'], $data['jc_created_by'], $data['jc_issue_id'], $data['created_date']))
 			{
 				return false;
 			}
 		}
 		if (strpos($data['body'], "@test") !== false)
 		{
-			if (!$this->_addActivity(4, $data['jc_response_id'], $data['created_by'], $data['jc_issue_id'], $data['created_date']))
+			if (!$this->_addActivity(4, $data['jc_response_id'], $data['jc_created_by'], $data['jc_issue_id'], $data['created_date']))
 			{
 				return false;
 			}

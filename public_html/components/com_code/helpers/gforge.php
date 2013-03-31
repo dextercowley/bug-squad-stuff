@@ -362,8 +362,10 @@ class GForge
 			// Attempt to get a list of tracker item data by tracker id.
 			// Get in batches of 5000 to avoid errors
 			$items = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 0);
-			$items1 = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 5000, 3000);
+			$items1 = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 3000);
+			$items2 = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 5000, 6000);
 			$items = array_merge($items, $items1);
+			$items = array_merge($items, $items2);
 			// For developing, just get the last 200 items
 // 			$items = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 6200);
 			return $items;
