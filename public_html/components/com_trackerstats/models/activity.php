@@ -86,7 +86,7 @@ class TrackerstatsModelActivity extends JModelList
 		$this->setState('list.limit', 25);
 		$this->setState('list.start', 0);
 		$this->setState('list.period', $jinput->getInt('period', 1));
-		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
+		$this->setState('list.activity_type', $jinput->getInt('type', 0));
 	}
 
 } // end of class

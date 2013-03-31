@@ -96,7 +96,7 @@ class TrackerstatsModelDashboard extends JModelList
 		$this->setState('list.limit', 25);
 		$this->setState('list.start', 0);
 		$this->setState('list.period', $jinput->getInt('period', 1));
-		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
+		$this->setState('list.activity_type', $jinput->getInt('type', 0));
 		$enteredPeriod = $jinput->getInt('period', 1);
 		if ($enteredPeriod == 5)
 		{

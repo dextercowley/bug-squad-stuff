@@ -13,16 +13,15 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 
-// Get the user object.
-$user = JFactory::getUser();
-// Check if user is allowed to add/edit based on trackerstats permissions.
-$canEdit = $user->authorise('core.edit', 'com_trackerstats');
+$chartType = $this->state->get('list.activity_type');
+$chartPeriod = $this->state->get('list.period');
+$typeSelected = array('', '', '', '');
+$periodSelected = array('', '', '', '', '', '');
+$typeSelected[$chartType] = 'selected="selected"';
+$periodSelected[$chartPeriod] = 'selected="selected"';
 
-$listOrder	= '';
-$listDirn	= '';
-$listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json&type=' . $chartType . '&period=' . $chartPeriod;
 JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 JFactory::getDocument()->addScriptDeclaration("
 	(function ($){
@@ -48,23 +47,23 @@ JFactory::getDocument()->addScriptDeclaration("
 <div id="barchart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
 </br>
 <h3>Chart Options</h3>
-<div class="form-inline">
+<form method="get" class="form-inline">
 <fieldset>
 		<label>Period</label>
 		<select id="period" name="period" class="input" size="1" >
-			<option value="1" selected="selected">7 Days</option>
-			<option value="2">30 Days</option>
-			<option value="3">90 Days</option>
-			<option value="4">1 Year</option>
-			<option value="5">Custom Period</option>
+			<option value="1" <?php echo $periodSelected[1];?>>7 Days</option>
+			<option value="2" <?php echo $periodSelected[2];?>>30 Days</option>
+			<option value="3" <?php echo $periodSelected[3];?>>90 Days</option>
+			<option value="4" <?php echo $periodSelected[4];?>>1 Year</option>
+			<option value="5" <?php echo $periodSelected[5];?>>Custom Period</option>
 		</select>
 
 		<label>Type</label>
 		<select id="type" name="type" class="input-small" size="1" >
-			<option value="0" selected="selected">All</option>
-			<option value="1">Tracker</option>
-			<option value="2">Test</option>
-			<option value="3">Code</option>
+			<option value="0" <?php echo $typeSelected[0];?>>All</option>
+			<option value="1" <?php echo $typeSelected[1];?>>Tracker</option>
+			<option value="2" <?php echo $typeSelected[2];?>>Test</option>
+			<option value="3" <?php echo $typeSelected[3];?>>Code</option>
 		</select>
 
 		<button class="dataUpdate button" id="dataUpdate" >Update Chart</button>
