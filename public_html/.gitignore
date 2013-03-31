@@ -22,3 +22,7 @@
 /cgi-bin
 /cli
 /.htaccess
+/layouts
+/CONTRIBUTING.md
+/kickstart.php
+/phpunit.xml.dist
