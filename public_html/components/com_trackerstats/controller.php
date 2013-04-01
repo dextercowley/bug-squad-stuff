@@ -25,7 +25,7 @@ class TrackerstatsController extends JControllerLegacy
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-		$cachable = true;
+		$cachable = false;
 
 		// Get the document object.
 		$document = JFactory::getDocument();
