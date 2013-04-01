@@ -95,7 +95,7 @@ class TrackerstatsModelReleasenotes extends JModelList
 		$this->setState('list.filter', JRequest::getString('filter-search'));
 
 		// filter.order
-		$limit = $app->getUserStateFromRequest('com_trackerstats.releasenotes.limit', 'limit', $params->get('display_num'), 'uint');
+		$limit = $app->getUserStateFromRequest('com_trackerstats.releasenotes.limit', 'limit', $params->get('display_num', 20), 'uint');
 		$this->setState('list.limit', $limit);
 		$this->setState('list.start', JRequest::getUInt('limitstart', 0));
 	}
