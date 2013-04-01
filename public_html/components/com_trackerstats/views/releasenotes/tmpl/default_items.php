@@ -35,16 +35,16 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<input type="hidden" name="limitstart" value="" />
 	</fieldset>
 
-	<table class="category">
+	<table class="table table-condensed table-striped">
 		<thead>
 			<tr>
-				<th class="list-title" >
+				<th >
 					<?php  echo Jtext::_('COM_TRACKERSTATS_RELEASENOTES_CATEGORY'); ?>
 				</th>
-				<th class="list-title" >
+				<th>
 					<?php  echo Jtext::_('COM_TRACKERSTATS_RELEASENOTES_ISSUE'); ?>
 				</th>
-				<th class="list-title" >
+				<th>
 					<?php  echo Jtext::_('COM_TRACKERSTATS_RELEASENOTES_TITLE'); ?>
 				</th>
 			</tr>
@@ -53,15 +53,15 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<tbody>
 
 		<?php foreach ($this->items as $i => $note) : ?>
-				<tr class="cat-list-row<?php echo $i % 2; ?>" >
-					<td class="list-title">
+				<tr>
+					<td>
 						<?php echo $note->category;?>
 					</td>
 					<td>
-						<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo $note->jc_issue_id; ?>">
+						<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&amp;tracker_item_id=<?php echo $note->jc_issue_id; ?>">
 							<?php echo $this->escape($note->jc_issue_id); ?></a>
 					</td>
-					<td class="list-title">
+					<td>
 						<?php echo $note->title;?>
 					</td>
 
