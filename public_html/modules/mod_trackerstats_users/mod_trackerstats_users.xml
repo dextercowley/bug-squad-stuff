@@ -30,6 +30,26 @@
 					label="MOD_TRACKERSTATS_NUMBER_DAYS_LABEL"
 					description="MOD_TRACKERSTATS_NUMBER_DAYS_DESC"
 				/>
+				<field
+					name="fromDate"
+					type="calendar"
+					label="MOD_TRACKERSTATS_FROM_DATE_LABEL"
+					description="MOD_TRACKERSTATS_FROM_DATE_DESC"
+					format="%Y-%m-%d"
+					size="22"
+					filter="user_utc"
+				/>
+				
+				<field
+					name="toDate"
+					type="calendar"
+					label="MOD_TRACKERSTATS_FROM_DATE_LABEL"
+					description="MOD_TRACKERSTATS_FROM_DATE_DESC"
+					format="%Y-%m-%d"
+					size="22"
+					filter="user_utc"
+				/>
+				
 				<field name="minimum_points" type="text"
 					filter="integer"
 					default="20"
