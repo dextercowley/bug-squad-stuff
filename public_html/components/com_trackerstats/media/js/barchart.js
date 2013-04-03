@@ -77,6 +77,7 @@
 						yaxis : yaxis
 					}
 				});
+				plot2.redraw();
 			}
 
 		};
