@@ -55,6 +55,7 @@ abstract class JHtmlBarchart
 		$document->addScript('components/com_trackerstats/media/js/jqplot.pointLabels.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/barchart.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jquery-ui-1.10.2.custom.min.js', 'text/javascript', true);
+		$document->addScript('components/com_trackerstats/media/js/jqplot.highlighter.min.js', 'text/javascript', true);
 		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery.jqplot.min.css' );
 		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery-ui-1.10.2.custom.min.css' );
 

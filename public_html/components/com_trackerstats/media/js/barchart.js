@@ -7,7 +7,6 @@
 		$.jqplot.config.enablePlugins = true;
 		// The url for our json data
 		var jsonurl = $("#" + urlId).attr("href");
-
 		var drawjqChart = function(url, tag) {
 			$.ajax({
 				url : url,
@@ -30,12 +29,14 @@
 				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks, label: axisLabel};
 				var yaxis = {padMin: 0, pad: 1.05,  min:0};
 				var barMargin = 50;
+				var highlighterAxis = 'y';
 				if (barDirection == 'horizontal')
 					{
 						temp = yaxis;
 						yaxis = xaxis;
 						xaxis = temp;
 						barMargin = 10;
+						highlighterAxis = 'x';
 					}
 				
 				var plot2 = $.jqplot(containerId, chartData, {
@@ -75,6 +76,15 @@
 						// ticks.
 						xaxis : xaxis,
 						yaxis : yaxis
+					},
+					highlighter: {
+						show: true,
+						tooltipAxes: highlighterAxis,
+						sizeAdjust: 5,
+						tooltipLocation: 'n',
+						fadeTooltip: true,
+						tooltipFadeSpeed: 'slow',
+						formatString: '<h4>%s Points</h4>'
 					}
 				});
 				plot2.redraw();
