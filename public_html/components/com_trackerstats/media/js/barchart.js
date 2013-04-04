@@ -84,7 +84,7 @@
 						tooltipLocation: 'n',
 						fadeTooltip: true,
 						tooltipFadeSpeed: 'slow',
-						formatString: '<h4>%s Points</h4>'
+						formatString: '<h4>%s</h4>'
 					}
 				});
 				plot2.redraw();
