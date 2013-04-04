@@ -26,7 +26,7 @@ $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=wiki.dis
 JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 ?>
 
-<h2>Wiki Edits by Contributor, Past 30 Days</h2>
+<h2>Wiki Activity</h2>
 <div id="barchart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
 
 

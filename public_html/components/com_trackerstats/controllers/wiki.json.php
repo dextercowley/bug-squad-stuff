@@ -25,7 +25,7 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		// jSON URL which should be requested
-		$json_url = 'http://docs.joomla.org/api.php?action=query&list=allusers&format=json&auexcludegroup=bot&aulimit=100&auactiveusers=';
+		$json_url = 'http://docs.joomla.org/api.php?action=query&list=allusers&format=json&auexcludegroup=bot&aulimit=100&auprop=editcount&auactiveusers=';
 		$ch = curl_init( $json_url );
 		$options = array(
 				CURLOPT_RETURNTRANSFER => true,
@@ -41,9 +41,11 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 
 		// Convert to array for processing
 		$workArray = array();
+		$totalEditsArray = array();
 		foreach ($users->query->allusers as $user)
 		{
 			$workArray[$user->name] = $user->recenteditcount;
+			$totalEditsArray[$user->name] = $user->editcount;
 		}
 		asort($workArray, SORT_NUMERIC);
 		$people = array();
@@ -51,10 +53,10 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 		$i = 0;
 		foreach ($workArray as $k => $v)
 		{
-			if ($v > 1 && $i++ < 25)
+			if ($v > 0 && $i++ < 25)
 			{
 				$edits[] = $v;
-				$people[] = $k;
+				$people[] = $k . ' (' . $totalEditsArray[$k] . ' total edits)';
 			}
 		}
 		$label = new stdClass();
@@ -63,7 +65,7 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 		header('Content-Type: application/json');
 
 		// Send the response.
-		echo json_encode(array(array($edits), $people, array($label), ''));
+		echo json_encode(array(array($edits), $people, array($label), 'Wiki Edits by Contributor in Past 30 Days'));
 
 
 	}
