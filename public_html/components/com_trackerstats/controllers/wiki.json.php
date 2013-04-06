@@ -22,7 +22,7 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 	 *
 	 * @since   2.5
 	 */
-	public function display($cachable = false, $urlparams = false)
+	public function display($cachable = true, $urlparams = false)
 	{
 		// jSON URL which should be requested
 		$json_url = 'http://docs.joomla.org/api.php?action=query&list=allusers&format=json&auexcludegroup=bot&aulimit=100&auprop=editcount&auactiveusers=';
@@ -66,7 +66,6 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 
 		// Send the response.
 		echo json_encode(array(array($edits), $people, array($label), 'Wiki Edits by Contributor in Past 30 Days'));
-
-
+		JFactory::getApplication()->close();
 	}
 }

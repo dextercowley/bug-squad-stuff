@@ -92,7 +92,6 @@ class TrackerstatsControllerActivity extends JControllerLegacy
 
 		// Send the response.
 		echo json_encode($return);
-
-
+		JFactory::getApplication()->close();
 	}
 }
