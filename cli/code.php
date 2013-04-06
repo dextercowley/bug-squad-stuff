@@ -1,7 +1,7 @@
 #! /usr/local/bin/php -c /usr/local/lib/php-no-xcache -v
 <?php
 define( '_JEXEC', 1 );
-define('JPATH_BASE', 'c:\xampp\htdocs\joomla_development\devj-cli-30-test\public_html');
+define('JPATH_BASE', dirname(__DIR__) . '/public_html');
 //define('JPATH_BASE', '/Users/louis/Sites/joomla/developer');
 define( 'DS', DIRECTORY_SEPARATOR );
 

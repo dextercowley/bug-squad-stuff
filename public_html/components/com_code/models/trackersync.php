@@ -485,7 +485,7 @@ class CodeModelTrackerSync extends JModelLegacy
 		$table->bind($data);
 
 		// Attempt to store the issue data.
-		if (!$table->store()) {
+		if (!$table->store(true)) {
 			$this->setError($table->getError());
 			return false;
 		}
