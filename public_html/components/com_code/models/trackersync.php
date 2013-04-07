@@ -481,6 +481,10 @@ class CodeModelTrackerSync extends JModelLegacy
 			$data['jc_close_by'] = $item->last_modified_by;
 		}
 
+		if (!isset($item->close_date)) {
+			$data['close_date'] = '0000-00-00 00:00:00';
+		}
+
 		// Bind the data to the issue object.
 		$table->bind($data);
 
