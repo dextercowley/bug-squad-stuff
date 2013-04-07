@@ -226,7 +226,7 @@ class CodeModelTrackerSync extends JModelLegacy
 		$trackers = array_reverse($trackers);
 		foreach ($trackers as $tracker)
 		{
- 			if ($tracker->tracker_id == 8103) {
+ 			if ($tracker->tracker_id == 8103 || $tracker->tracker_id == 11410) {
 				$this->_populateTrackerFields($tracker->tracker_id);
 				$this->_syncTracker($tracker);
 			}
@@ -294,10 +294,10 @@ class CodeModelTrackerSync extends JModelLegacy
 				$processedCount++;
 			}
 
-// 			echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total read: $total of $totalCount\n";
+// echo "Skipped issues: $skippedCount;  Processed issues: $processedCount;  Total read: $total of $totalCount\n";
 		}
 
-		JLog::add('Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
+		JLog::add('Tracker: ' . $tracker->tracker_id . '; Skipped: ' . $skippedCount . ';  Processed issues: ' . $processedCount . ';  Total: ' . $total);
 		$logMessage = 'Issues: ' . $this->processingTotals['issues'] . ';  Changes: ' . $this->processingTotals['changes'] . ';';
 		$logMessage .= '  Files: ' . $this->processingTotals['files'] . ';  Messages: ' . $this->processingTotals['messages'] . ' ;';
 		$logMessage .= '  Users: ' . $this->processingTotals['users'] . ' ;';
