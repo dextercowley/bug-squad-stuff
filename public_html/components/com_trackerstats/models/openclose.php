@@ -37,6 +37,8 @@ class TrackerstatsModelOpenclose extends JModelList
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
 
+		$this->populateState();
+
 		$periodList = array(1 => 7, 2 => 30, 3 => 90);
 		$periodNames = array(1 => 'Weeks', 2 => 'Months', 3 => 'Quarters');
 		$periodName = $periodNames[$this->state->get('list.period')];

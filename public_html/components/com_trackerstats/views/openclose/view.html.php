@@ -29,7 +29,7 @@ class TrackerstatsViewOpenclose extends JViewLegacy
 
 		// Get some data from the models
 		$state		= $this->get('State');
-		$items		= $this->get('IssueCounts');
+		$items		= null;
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
