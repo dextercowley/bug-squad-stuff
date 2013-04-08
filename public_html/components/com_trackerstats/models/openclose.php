@@ -66,7 +66,26 @@ class TrackerstatsModelOpenclose extends JModelList
 		$query->where('i.state = 0');
 
 		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
-		$closedIssues = $db->loadObjectList();
+		$closedIssues = $db->loadObject();
+
+		$query = $db->getQuery(true);
+		for ($i = 4; $i > 0; $i--)
+		{
+		$startDay = ($i * $periodValue) - 1;
+		$endDay = ($i - 1) * $periodValue;
+		$query->select('SUM(CASE WHEN DATE(i.created_date) BETWEEN ' .
+					'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) ' .
+					' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY)) THEN 1 ELSE 0 END)' .
+					' AS opened' . $i);
+		}
+		$query->select('DATE(NOW()) AS end_date');
+		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
+		$query->where('date(i.created_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
+
+		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
+		$openedIssues = $db->loadObject();
+		return array($openedIssues, $closedIssues);
+
 	}
 
 	/**

@@ -25,7 +25,7 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		$model = $this->getModel('Openclose', 'TrackerstatsModel');
-		$items = $model->getItems();
+		$items = $model->getIssueCounts();
 		$state = $model->getState();
 
 		$periodType = $state->get('list.period');
