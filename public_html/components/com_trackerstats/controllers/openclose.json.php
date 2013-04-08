@@ -38,17 +38,23 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 		$title = "Issues Opened and Closed for Past Four $periodText";
 
 		$ticks = array();
-		$points = array();
+		$counts = array();
 
-		// Build series arrays in reverse order for the chart
-		foreach ($items as $item)
-		{
-			$group = $item->activity_group;
-			$points[$group][] = (int) $item->p4;
-			$points[$group][] = (int) $item->p3;
-			$points[$group][] = (int) $item->p2;
-			$points[$group][] = (int) $item->p1;
-		}
+		$counts['opened'][] = (int) $items[0]->opened4;
+		$counts['opened'][] = (int) $items[0]->opened3;
+		$counts['opened'][] = (int) $items[0]->opened2;
+		$counts['opened'][] = (int) $items[0]->opened1;
+
+		$counts['closed'][] = (int) $items[1]->closed4;
+		$counts['closed'][] = (int) $items[1]->closed3;
+		$counts['closed'][] = (int) $items[1]->closed2;
+		$counts['closed'][] = (int) $items[1]->closed1;
+
+		$counts['fixed'][] = (int) $items[1]->fixed4;
+		$counts['fixed'][] = (int) $items[1]->fixed3;
+		$counts['fixed'][] = (int) $items[1]->fixed2;
+		$counts['fixed'][] = (int) $items[1]->fixed1;
+
 		$endDate = $items[0]->end_date;
 		$periodDays = array(7,7,30,90);
 		$dayInterval = $periodDays[$periodType];
@@ -66,20 +72,13 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 		$label1 = new stdClass();
 		$label2 = new stdClass();
 		$label3 = new stdClass();
-		$types = array_keys($points);
-		$label1->label = $types[0] . ' Points';
-		if ($activityType === 0)
-		{
-			$label2->label = $types[1] . ' Points';
-			$label3->label = $types[2] . ' Points';
-			$data = array($points[$types[0]], $points[$types[1]], $points[$types[2]]);
-			$labels = array($label1, $label2, $label3);
-		}
-		else
-		{
-			$data = array($points[$types[0]]);
-			$labels = array($label1);
-		}
+		$types = array_keys($counts);
+		$label1->label = $types[0] . ' Count';
+		$label2->label = $types[1] . ' Count';
+		$label3->label = $types[2] . ' Count';
+		$data = array($counts[$types[0]], $counts[$types[1]], $counts[$types[2]]);
+		$labels = array($label1, $label2, $label3);
+
 
 		// assemble array
 		$return = array($data, $ticks, $labels, $title);
