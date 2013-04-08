@@ -40,20 +40,20 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 		$ticks = array();
 		$counts = array();
 
-		$counts['opened'][] = (int) $items[0]->opened4;
-		$counts['opened'][] = (int) $items[0]->opened3;
-		$counts['opened'][] = (int) $items[0]->opened2;
-		$counts['opened'][] = (int) $items[0]->opened1;
+		$counts['Opened'][] = (int) $items[0]->opened4;
+		$counts['Opened'][] = (int) $items[0]->opened3;
+		$counts['Opened'][] = (int) $items[0]->opened2;
+		$counts['Opened'][] = (int) $items[0]->opened1;
 
-		$counts['closed'][] = (int) $items[1]->closed4;
-		$counts['closed'][] = (int) $items[1]->closed3;
-		$counts['closed'][] = (int) $items[1]->closed2;
-		$counts['closed'][] = (int) $items[1]->closed1;
+		$counts['Closed'][] = (int) $items[1]->closed4;
+		$counts['Closed'][] = (int) $items[1]->closed3;
+		$counts['Closed'][] = (int) $items[1]->closed2;
+		$counts['Closed'][] = (int) $items[1]->closed1;
 
-		$counts['fixed'][] = (int) $items[1]->fixed4;
-		$counts['fixed'][] = (int) $items[1]->fixed3;
-		$counts['fixed'][] = (int) $items[1]->fixed2;
-		$counts['fixed'][] = (int) $items[1]->fixed1;
+		$counts['Fixed'][] = (int) $items[1]->fixed4;
+		$counts['Fixed'][] = (int) $items[1]->fixed3;
+		$counts['Fixed'][] = (int) $items[1]->fixed2;
+		$counts['Fixed'][] = (int) $items[1]->fixed1;
 
 		$endDate = $items[0]->end_date;
 		$periodDays = array(7,7,30,90);
@@ -73,9 +73,9 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 		$label2 = new stdClass();
 		$label3 = new stdClass();
 		$types = array_keys($counts);
-		$label1->label = $types[0] . ' Count';
-		$label2->label = $types[1] . ' Count';
-		$label3->label = $types[2] . ' Count';
+		$label1->label = $types[0];
+		$label2->label = $types[1];
+		$label3->label = $types[2];
 		$data = array($counts[$types[0]], $counts[$types[1]], $counts[$types[2]]);
 		$labels = array($label1, $label2, $label3);
 

@@ -3,7 +3,7 @@
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  */
 (function ($) {
-	$.JQPLOTBarchart = function(containerId, urlId, barDirection) {
+	$.JQPLOTBarchart = function(containerId, urlId, barDirection, stackSeries, barMargin) {
 		$.jqplot.config.enablePlugins = true;
 		// The url for our json data
 		var jsonurl = $("#" + urlId).attr("href");
@@ -28,20 +28,18 @@
 				// Swap axis if bardirection is horizontal
 				var xaxis = {renderer: $.jqplot.CategoryAxisRenderer, ticks: chartTicks, label: axisLabel};
 				var yaxis = {padMin: 0, pad: 1.05,  min:0};
-				var barMargin = 50;
 				var highlighterAxis = 'y';
 				if (barDirection == 'horizontal')
 					{
 						temp = yaxis;
 						yaxis = xaxis;
 						xaxis = temp;
-						barMargin = 10;
 						highlighterAxis = 'x';
 					}
 				
 				var plot2 = $.jqplot(containerId, chartData, {
 					title : title,
-					stackSeries : true,
+					stackSeries : stackSeries,
 					// The "seriesDefaults" option is an options object that
 					// will
 					// be applied to all series in the chart.
@@ -81,7 +79,7 @@
 						show: true,
 						tooltipAxes: highlighterAxis,
 						sizeAdjust: 5,
-						tooltipLocation: 'n',
+						tooltipLocation: 'ne',
 						fadeTooltip: true,
 						tooltipFadeSpeed: 'slow',
 						formatString: '<h4>%s</h4>'

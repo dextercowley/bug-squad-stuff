@@ -18,11 +18,11 @@ $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
 $jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=openclose.display&format=json';
-JHtml::_('barchart.barchart', 'barchart', 'barchart', false);
+JHtml::_('barchart.barchart', 'barchart', 'barchart', false, false, 25);
 ?>
 
-<h2>Tracker Issues Opened and Closed by Period</h2>
-<div id="barchart" style="width:600px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
+<h2>Open and Close Activity</h2>
+<div id="barchart" style="width:700px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
 
 </br>
 <h3>Chart Options</h3>

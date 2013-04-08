@@ -34,7 +34,7 @@ abstract class JHtmlBarchart
 	 *
 	 * @since   2.5
 	 */
-	public static function barchart($containerId, $urlId, $horizontal = true)
+	public static function barchart($containerId, $urlId, $horizontal = true, $stackSeries = true, $barMargin = 10)
 	{
 		// Only load once
 		if (isset(self::$loaded[__METHOD__]))
@@ -63,7 +63,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 					});
 			})(jQuery);
 			"
@@ -85,7 +85,7 @@ abstract class JHtmlBarchart
 						href = href + '&startdate=' + startdate + '&enddate=' + enddate;
 					}
 					$('#" . $urlId . "').attr('href', href);
-					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 				});
 				});
 			})(jQuery);
@@ -142,7 +142,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 				(function ($){
 				$(document).ready(function (){
-				var barchart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+				var barchart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 	});
 	})(jQuery);
 				"
@@ -158,7 +158,7 @@ abstract class JHtmlBarchart
 				var href = $('#" . $urlId . "').attr('href');
 				href = href + '&period=' + period + '&activity_type=' + type;
 				$('#" . $urlId . "').attr('href', href);
-				var barChart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+				var barChart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 	});
 	});
 	})(jQuery);
