@@ -45,15 +45,20 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 		$counts['Opened'][] = (int) $items[0]->opened2;
 		$counts['Opened'][] = (int) $items[0]->opened1;
 
-		$counts['Closed'][] = (int) $items[1]->closed4;
-		$counts['Closed'][] = (int) $items[1]->closed3;
-		$counts['Closed'][] = (int) $items[1]->closed2;
-		$counts['Closed'][] = (int) $items[1]->closed1;
-
 		$counts['Fixed'][] = (int) $items[1]->fixed4;
 		$counts['Fixed'][] = (int) $items[1]->fixed3;
 		$counts['Fixed'][] = (int) $items[1]->fixed2;
 		$counts['Fixed'][] = (int) $items[1]->fixed1;
+
+		$counts['Other Closed'][] = (int) $items[1]->closed4;
+		$counts['Other Closed'][] = (int) $items[1]->closed3;
+		$counts['Other Closed'][] = (int) $items[1]->closed2;
+		$counts['Other Closed'][] = (int) $items[1]->closed1;
+
+		$counts['Total Closed'][] = $counts['Other Closed'][0] + $counts['Fixed'][0];
+		$counts['Total Closed'][] = $counts['Other Closed'][1] + $counts['Fixed'][1];
+		$counts['Total Closed'][] = $counts['Other Closed'][2] + $counts['Fixed'][2];
+		$counts['Total Closed'][] = $counts['Other Closed'][3] + $counts['Fixed'][3];
 
 		$endDate = $items[0]->end_date;
 		$periodDays = array(7,7,30,90);
@@ -72,12 +77,14 @@ class TrackerstatsControllerOpenclose extends JControllerLegacy
 		$label1 = new stdClass();
 		$label2 = new stdClass();
 		$label3 = new stdClass();
+		$label4 = new stdClass();
 		$types = array_keys($counts);
 		$label1->label = $types[0];
 		$label2->label = $types[1];
 		$label3->label = $types[2];
-		$data = array($counts[$types[0]], $counts[$types[1]], $counts[$types[2]]);
-		$labels = array($label1, $label2, $label3);
+		$label4->label = 'Total Closed';
+		$data = array($counts[$types[0]], $counts[$types[1]], $counts[$types[2]], $counts['Total Closed']);
+		$labels = array($label1, $label2, $label3, $label4);
 
 
 		// assemble array
