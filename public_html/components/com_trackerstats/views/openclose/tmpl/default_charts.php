@@ -25,6 +25,11 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false, false, 20);
 <div id="barchart" style="width:700px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
 
 </br>
+<div>
+<p>Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was
+a duplicate issue or not considered to be a bug.</p>
+<p>Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed
+because they were duplicate reports or not bugs.</p></div>
 <h3>Chart Options</h3>
 
 <div class="form-inline">
