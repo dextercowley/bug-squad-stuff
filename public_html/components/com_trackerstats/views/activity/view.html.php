@@ -24,29 +24,13 @@ class TrackerstatsViewActivity extends JViewLegacy
 
 	function display($tpl = null)
 	{
-		$app		= JFactory::getApplication();
-		$params		= $app->getParams();
+		$this->params = JFactory::getApplication()->getParams();
 
-		// Get some data from the models
-		$state		= $this->get('State');
-		$items		= $this->get('Items');
-
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
-		}
-
-		// Check whether category access level allows access.
-		$user = JFactory::getUser();
-		$groups	= $user->getAuthorisedViewLevels();
-
-		$this->state = $state;
-		$this->items = $items;
-		$this->params = $params;
+		$this->state = null;
+		$this->items = null;
 
 		//Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
 
