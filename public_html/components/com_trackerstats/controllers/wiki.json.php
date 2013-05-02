@@ -44,16 +44,26 @@ class TrackerstatsControllerWiki extends JControllerLegacy
 		$totalEditsArray = array();
 		foreach ($users->query->allusers as $user)
 		{
+			if ($user->name == 'MediaWiki default') continue;
 			$workArray[$user->name] = $user->recenteditcount;
 			$totalEditsArray[$user->name] = $user->editcount;
 		}
 		asort($workArray, SORT_NUMERIC);
+		// Slice the last 25 entries
+		$maxCount = 25;
+		$arrayCount = count($workArray);
+		if ($arrayCount > $maxCount)
+		{
+			$sliceStart = $arrayCount - $maxCount;
+			$workArray = array_slice($workArray, $sliceStart, $maxCount);
+		}
+
 		$people = array();
 		$edits = array();
 		$i = 0;
 		foreach ($workArray as $k => $v)
 		{
-			if ($v > 0 && $i++ < 25)
+			if ($v > 0 && $i++ < $maxCount)
 			{
 				$edits[] = $v;
 				$people[] = $k . ' (' . $totalEditsArray[$k] . ' total edits)';
