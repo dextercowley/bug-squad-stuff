@@ -10,5 +10,5 @@
 defined('_JEXEC') or die;
 ?>
 <div class="custom<?php echo $moduleclass_sfx ?>">
-<?php echo $names;?>
+<p><?php echo $names;?></p>
 </div>

@@ -16,7 +16,7 @@ jimport('joomla.application.component.view');
  * HTML View class for the JoomproSubs component
  *
  */
-class TrackerstatsViewActivity extends JViewLegacy
+class TrackerstatsViewOpenclose extends JViewLegacy
 {
 	protected $state;
 	protected $items;
@@ -24,13 +24,25 @@ class TrackerstatsViewActivity extends JViewLegacy
 
 	function display($tpl = null)
 	{
-		$this->params = JFactory::getApplication()->getParams();
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
 
-		$this->state = null;
-		$this->items = null;
+		// Get some data from the models
+		$state		= $this->get('State');
+		$items		= null;
+
+		// Check for errors.
+		if (count($errors = $this->get('Errors'))) {
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
+		}
+
+		$this->state = $state;
+		$this->items = $items;
+		$this->params = $params;
 
 		//Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
 
@@ -51,7 +63,7 @@ class TrackerstatsViewActivity extends JViewLegacy
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
 		}
 		else {
-			$this->params->def('page_heading', JText::_('COM_TRACKERSTATS_DASHBOARD_PAGE_TITLE'));
+			$this->params->def('page_heading', JText::_('COM_TRACKERSTATS_OPENCLOSE_PAGE_TITLE'));
 		}
 
 		$title = $this->params->get('page_title', '');

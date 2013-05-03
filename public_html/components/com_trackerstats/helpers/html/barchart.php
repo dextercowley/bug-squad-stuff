@@ -34,7 +34,7 @@ abstract class JHtmlBarchart
 	 *
 	 * @since   2.5
 	 */
-	public static function barchart($containerId, $urlId, $horizontal = true)
+	public static function barchart($containerId, $urlId, $horizontal = true, $stackSeries = true, $barMargin = 10)
 	{
 		// Only load once
 		if (isset(self::$loaded[__METHOD__]))
@@ -46,14 +46,16 @@ abstract class JHtmlBarchart
 
 		// Depends on jQuery UI
 		$document = JFactory::getDocument();
-		$document->addScript('components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
-		$document->addScript('components/com_trackerstats/media/js/jquery-noconflict.js', 'text/javascript', false);
+		JHtml::_('bootstrap.framework');
+//		$document->addScript('components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
+//		$document->addScript('components/com_trackerstats/media/js/jquery-noconflict.js', 'text/javascript', false);
 		$document->addScript('components/com_trackerstats/media/js/jquery.jqplot.min.js', 'text/javascript', false);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.barRenderer.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.pointLabels.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/barchart.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jquery-ui-1.10.2.custom.min.js', 'text/javascript', true);
+		$document->addScript('components/com_trackerstats/media/js/jqplot.highlighter.min.js', 'text/javascript', true);
 		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery.jqplot.min.css' );
 		$document->addStyleSheet( JURI::root( true ).'/components/com_trackerstats/media/css/jquery-ui-1.10.2.custom.min.css' );
 
@@ -61,7 +63,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+					var barchart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 					});
 			})(jQuery);
 			"
@@ -69,7 +71,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 			(function ($){
 				$(document).ready(function (){
-    			$('button.dataUpdate').click(function() {
+    			$('#dataUpdate').click(function() {
 					$('#" . $containerId . "').empty();
 					// add the form variables to the URL
 					var period = $('#period').val();
@@ -83,7 +85,7 @@ abstract class JHtmlBarchart
 						href = href + '&startdate=' + startdate + '&enddate=' + enddate;
 					}
 					$('#" . $urlId . "').attr('href', href);
-					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 				});
 				});
 			})(jQuery);
@@ -140,7 +142,7 @@ abstract class JHtmlBarchart
 		JFactory::getDocument()->addScriptDeclaration("
 				(function ($){
 				$(document).ready(function (){
-				var barchart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+				var barchart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 	});
 	})(jQuery);
 				"
@@ -156,7 +158,7 @@ abstract class JHtmlBarchart
 				var href = $('#" . $urlId . "').attr('href');
 				href = href + '&period=' + period + '&activity_type=' + type;
 				$('#" . $urlId . "').attr('href', href);
-				var barChart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "');
+				var barChart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 	});
 	});
 	})(jQuery);

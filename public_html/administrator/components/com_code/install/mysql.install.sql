@@ -20,7 +20,7 @@ INSERT INTO `jos_code_activity_types`
 CREATE TABLE IF NOT EXISTS `jos_code_activity_detail` (
   `activity_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-create; 2-comment; 3-change; 4-test; 5-patch; 6-pull in comment; 7-pull in description',
   `activity_xref_id` int(10) unsigned NOT NULL COMMENT 'id for issue, response, change, or file',
-  `user_id` int(11) DEFAULT NULL,
+  `jc_user_id` int(11) DEFAULT NULL,
   `jc_issue_id` int(11) DEFAULT NULL,
   `activity_date` datetime DEFAULT NULL,
   PRIMARY KEY (`activity_type`,`activity_xref_id`),
@@ -274,7 +274,7 @@ CREATE TABLE `jos_code_trackers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jos_code_users` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL auto_increment,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `address` varchar(512) NOT NULL,

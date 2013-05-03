@@ -16,21 +16,18 @@ jimport('joomla.application.component.view');
  * HTML View class for the JoomproSubs component
  *
  */
-class TrackerstatsViewActivity extends JViewLegacy
+class TrackerstatsViewWiki extends JViewLegacy
 {
-	protected $state;
-	protected $items;
-	protected $pagination;
 
 	function display($tpl = null)
 	{
-		$this->params = JFactory::getApplication()->getParams();
+		$app		= JFactory::getApplication();
+		$params		= $app->getParams();
 
-		$this->state = null;
-		$this->items = null;
+		$this->params = $params;
 
 		//Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 
 		$this->_prepareDocument();
 
@@ -51,7 +48,7 @@ class TrackerstatsViewActivity extends JViewLegacy
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
 		}
 		else {
-			$this->params->def('page_heading', JText::_('COM_TRACKERSTATS_DASHBOARD_PAGE_TITLE'));
+			$this->params->def('page_heading', JText::_('COM_TRACKERSTATS_WIKI_PAGE_TITLE'));
 		}
 
 		$title = $this->params->get('page_title', '');

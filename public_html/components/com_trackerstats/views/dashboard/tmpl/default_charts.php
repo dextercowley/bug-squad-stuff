@@ -47,32 +47,35 @@ JFactory::getDocument()->addScriptDeclaration("
 <h2>Bug Squad Activity</h2>
 <div id="barchart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
 </br>
-<fieldset class="filters btn-toolbar">
 <h3>Chart Options</h3>
-	<div class="btn-group pull-right">
-		<label for="type" class="element-invisible">&nbsp;&nbsp;Type</label>
-		<select id="type" name="type" class="inputbox input-mini" size="1" >
-			<option value="0" selected="selected">All</option>
-			<option value="1">Tracker&nbsp;&nbsp;</option>
-			<option value="2">Test</option>
-			<option value="3">Code</option>
-		</select>
-		<label for="period" class="element-invisible">Period</label>
-		<select id="period" name="period" class="inputbox input-mini" size="1" >
+<div class="form-inline">
+<fieldset>
+		<label>Period</label>
+		<select id="period" name="period" class="input" size="1" >
 			<option value="1" selected="selected">7 Days</option>
 			<option value="2">30 Days</option>
 			<option value="3">90 Days</option>
 			<option value="4">1 Year</option>
-			<option value="5">Custom Period&nbsp;&nbsp;</option>
+			<option value="5">Custom Period</option>
 		</select>
-		&nbsp;&nbsp;<button class="dataUpdate" id="dataUpdate" >&nbsp;&nbsp;Update Chart&nbsp;&nbsp;</button>
-	</div>
+
+		<label>Type</label>
+		<select id="type" name="type" class="input-small" size="1" >
+			<option value="0" selected="selected">All</option>
+			<option value="1">Tracker</option>
+			<option value="2">Test</option>
+			<option value="3">Code</option>
+		</select>
+
+		<button class="dataUpdate button" id="dataUpdate" >Update Chart</button>
 	</br>
-	<div id="hidedates">
-	<label for="start_date" class="element-invisible">Start Date</label>
-	<input id="start_date" class="datepicker" type="text" />
-	<label for="end_date" class="element-invisible">End Date</label>
-	<input id="end_date" class="datepicker" type="text" />
+	</br>
+	<div id="hidedates" class="form-inline">
+	<label>Start Date</label>
+	<input id="start_date" class="datepicker input-small" type="text" />
+	<label>End Date</label>
+	<input id="end_date" class="datepicker input-small" type="text" />
 	</div>
 
   </fieldset>
+  </div>
