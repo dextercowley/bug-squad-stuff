@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
+ * @copyright	Copyright (C) 2011 Mark Dexter. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -11,10 +11,10 @@ jimport('joomla.application.component.modellist');
 jimport('joomla.application.categories');
 
 /**
- * Joomprosubs Component Joomprosub Model
+ * Get data for the open and closed issues bar chart.
  *
  * @package		Joomla.Site
- * @subpackage	com_joomprosubs
+ * @subpackage	com_trackerstats
  */
 class TrackerstatsModelOpenclose extends JModelList
 {

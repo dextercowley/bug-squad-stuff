@@ -9,7 +9,7 @@
 defined('_JEXEC') or die;
 
 /**
- * JSON controller for Trackerstats -- Returns data array for rendering bar charts
+ * JSON controller for Trackerstats -- Returns data array for rendering wiki activity bar charts
  *
  * @since       2.5
  */

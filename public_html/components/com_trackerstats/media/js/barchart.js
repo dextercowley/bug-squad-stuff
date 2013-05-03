@@ -1,4 +1,6 @@
 /**
+ * Render a bar chart using the jqplot JS library.
+ * 
  * @copyright Copyright (C) 2013 Mark Dexter. All rights reserved.
  * @license GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -48,9 +50,7 @@
 						rendererOptions : {
 							fillToZero : true,
 							barDirection : barDirection,
-//							barWidth: 10,
 							barMargin: barMargin
-//							barPadding: 1,
 						},
 						pointLabels: {show: false}
 					},

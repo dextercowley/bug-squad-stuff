@@ -2,8 +2,8 @@
 /**
  * version $Id: view.html.php 287 2011-11-11 23:13:33Z dextercowley $
  * @package		Joomla.Site
- * @subpackage	com_joomprosubs
- * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
+ * @subpackage	com_trackerstats
+ * @copyright	Copyright (C) 2011 Mark Dexter. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 /**
- * HTML View class for the JoomproSubs component
+ * HTML View class for the wiki activity bar chart.
  *
  */
 class TrackerstatsViewWiki extends JViewLegacy

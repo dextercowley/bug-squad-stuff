@@ -3,14 +3,14 @@
  * @package     Joomla.Libraries
  * @subpackage  HTML
  *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Mark Dexter. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 defined('JPATH_PLATFORM') or die;
 
 /**
- * HTML utility class for creating a sortable table list
+ * HTML utility class for creating bar charts using jQuery and jqplot JavaScript libraries.
  *
  * @package     com_trackerstats
  * @subpackage  HTML
@@ -47,8 +47,6 @@ abstract class JHtmlBarchart
 		// Depends on jQuery UI
 		$document = JFactory::getDocument();
 		JHtml::_('bootstrap.framework');
-//		$document->addScript('components/com_trackerstats/media/js/jquery-1.9.1.min.js', 'text/javascript', false);
-//		$document->addScript('components/com_trackerstats/media/js/jquery-noconflict.js', 'text/javascript', false);
 		$document->addScript('components/com_trackerstats/media/js/jquery.jqplot.min.js', 'text/javascript', false);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.barRenderer.min.js', 'text/javascript', true);
 		$document->addScript('components/com_trackerstats/media/js/jqplot.categoryAxisRenderer.min.js', 'text/javascript', true);
