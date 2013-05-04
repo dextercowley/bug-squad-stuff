@@ -17,28 +17,24 @@ $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=openclose.display&format=json';
-JHtml::_('barchart.barchart', 'barchart', 'barchart', false, false, 20);
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=snapshot.display&format=json';
+JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 20);
 ?>
 
-<h2>Open and Close Activity</h2>
-<div id="barchart" style="width:700px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
-
+<h2>Total Open Issues by Status</h2>
+<div id="barchart" style="width:500px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
+<a href="<?php echo $jsonSource; ?>">Data</a>
 </br>
-<div>
-<p>Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was
-a duplicate issue or not considered to be a bug.</p>
-<p>Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed
-because they were duplicate reports or not bugs.</p></div>
+
 <h3>Chart Options</h3>
 
 <div class="form-inline">
 <fieldset>
 		<label>Period</label>
 		<select id="period" name="period" class="input-small" size="1" >
-			<option value="1" selected="selected">7 Days</option>
-			<option value="2">30 Days</option>
-			<option value="3">90 Days</option>
+			<option value="1" selected="selected">Days</option>
+			<option value="2">7 Days</option>
+			<option value="3">30 Days</option>
 		</select>
 		<button class="button" id="dataUpdate" >Update Chart</button>
 </fieldset>

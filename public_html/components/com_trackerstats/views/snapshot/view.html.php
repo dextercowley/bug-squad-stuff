@@ -16,7 +16,7 @@ jimport('joomla.application.component.view');
  * HTML View class for the total open and closed issues bar chart.
  *
  */
-class TrackerstatsViewOpenclose extends JViewLegacy
+class TrackerstatsViewSnapshot extends JViewLegacy
 {
 	protected $state;
 	protected $items;

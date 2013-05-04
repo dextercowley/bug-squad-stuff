@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <metadata>
-	<layout title="COM_TRACKERSTATS_VIEW_OPENCLOSE_TITLE" option="COM_TRACKERSTATS_VIEW_OPENCLOSE_OPTION">
+	<layout title="COM_TRACKERSTATS_VIEW_SNAPSHOT_TITLE" option="COM_TRACKERSTATS_VIEW_SNAPSHOT_OPTION">
 		<help
 			key = "JHELP_MENUS_MENU_ITEM_CONTACT_FEATURED"
 		/>
 		<message>
-			<![CDATA[COM_TRACKERSTATS_VIEW_OPENCLOSE_DESC]]>
+			<![CDATA[COM_TRACKERSTATS_VIEW_SNAPSHOT_DESC]]>
 		</message>
 	</layout>
 </metadata>

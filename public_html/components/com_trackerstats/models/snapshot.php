@@ -11,10 +11,9 @@ jimport('joomla.application.component.modellist');
 jimport('joomla.application.categories');
 
 /**
- * Get data for the open and closed issues bar chart.
+ * Gets the data for the total open issues by time period bar chart.
  *
- * @package		Joomla.Site
- * @subpackage	com_trackerstats
+ * @package		com_trackerstats
  */
 class TrackerstatsModelSnapshot extends JModelList
 {
@@ -26,68 +25,38 @@ class TrackerstatsModelSnapshot extends JModelList
 	protected $items = null;
 
 	/**
-	 * Method to build an SQL query to load the list data.
+	 * Method to get the data for the snapshots bar chart.
 	 *
 	 * @return	string	An SQL query
 	 * @since	1.6
 	 */
-	public function getIssueCounts()
+	protected function getListQuery()
 	{
-		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
-
-		$this->populateState();
-
-		$periodList = array(1 => 2, 2 => 7, 3 => 30);
+		$periodList = array(1 => 1, 2 => 7, 3 => 30);
 		$periodNames = array(1 => 'Days', 2 => 'Weeks', 3 => 'Months');
 		$periodName = $periodNames[$this->state->get('list.period')];
 		$periodValue = $periodList[$this->state->get('list.period')];
-		// Get 12 columns
-		for ($i = 4; $i > 0; $i--)
-		{
-			$startDay = ($i * $periodValue) - 1;
-			$endDay = ($i - 1) * $periodValue;
-			$query->select('SUM(CASE WHEN (DATE(i.close_date) BETWEEN ' .
-					'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) ' .
-					' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY))) AND i.status_name LIKE \'%fixed%\' THEN 1 ELSE 0 END)' .
-					' AS fixed' . $i);
-		}
-		for ($i = 4; $i > 0; $i--)
-		{
-		$startDay = ($i * $periodValue) - 1;
-		$endDay = ($i - 1) * $periodValue;
-		$query->select('SUM(CASE WHEN (DATE(i.close_date) BETWEEN ' .
-					'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) ' .
-					' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY))) AND i.status_name NOT LIKE \'%fixed%\' THEN 1 ELSE 0 END)' .
-					' AS closed' . $i);
-		}
-		$query->select('DATE(NOW()) AS end_date');
-		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
-		$query->where('date(i.close_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
-		$query->where('i.state = 0');
 
-		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
-		$closedIssues = $db->loadObject();
+		// Get starting date from the database -- latest date available. Should usually be today.
+		$today = $this->getLatestDate();
+
+		// Calculate the prior three dates
+		$priorDates = array();
+		$db	= $this->getDbo();
+		$priorDates[] = $db->quote($today);
+		for ($i = 1; $i < 4; $i++)
+		{
+			$workDate = new DateTime($today);
+			$workDate->sub(new DateInterval('P' . ($periodValue * $i) . 'D'));
+			$priorDates[] = $db->quote($workDate->format('Y-m-d'));
+		}
 
 		$query = $db->getQuery(true);
-		for ($i = 4; $i > 0; $i--)
-		{
-		$startDay = ($i * $periodValue) - 1;
-		$endDay = ($i - 1) * $periodValue;
-		$query->select('SUM(CASE WHEN DATE(i.created_date) BETWEEN ' .
-					'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) ' .
-					' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY)) THEN 1 ELSE 0 END)' .
-					' AS opened' . $i);
-		}
-		$query->select('DATE(NOW()) AS end_date');
-		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
-		$query->where('date(i.created_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
-
-		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
-		$openedIssues = $db->loadObject();
-		return array($openedIssues, $closedIssues);
-
+		$query->select('*')
+			->from('#__code_tracker_snapshots')
+			->where('tracker_id = 3')
+			->where('snapshot_day IN (' . implode(',', $priorDates) . ')');
+		return $query;
 	}
 
 	/**
@@ -106,6 +75,22 @@ class TrackerstatsModelSnapshot extends JModelList
 		$this->setState('list.limit', 25);
 		$this->setState('list.start', 0);
 		$this->setState('list.period', $jinput->getInt('period', 1));
+		$this->setState('list.activity_type', $jinput->getInt('activity_type', 0));
+	}
+
+	/**
+	 * Method to get the most recent date available from the snapshot table
+	 *
+	 */
+	protected function getLatestDate()
+	{
+		$db	= $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('MAX(snapshot_day)')
+			->from('#__code_tracker_snapshots')
+			->where('tracker_id = 3');
+		$db->setQuery($query);
+		return $db->loadResult();
 	}
 
 } // end of class
