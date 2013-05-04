@@ -77,6 +77,7 @@ abstract class JHtmlBarchart
 					var href = $('#" . $urlId . "').attr('href');
 					var startdate = $('#start_date').val();
 					var enddate = $('#end_date').val();
+					href = href.substr(0, href.indexOf('&format=json') + 12);
 					href = href + '&period=' + period + '&activity_type=' + type;
 					if (period == 5)
 					{
