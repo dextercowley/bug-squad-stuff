@@ -22,7 +22,7 @@ $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=barcharts.display&format=json';
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&amp;task=barcharts.display&amp;format=json';
 JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 JFactory::getDocument()->addScriptDeclaration("
 	(function ($){
@@ -45,7 +45,7 @@ JFactory::getDocument()->addScriptDeclaration("
 ?>
 
 <h2>Bug Squad Activity</h2>
-<div id="barchart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
+<div id="barchart" style="width:700px; height:600px;" data-href="<?php echo $jsonSource; ?>"></div>
 </br>
 <h3>Chart Options</h3>
 <div class="form-inline">

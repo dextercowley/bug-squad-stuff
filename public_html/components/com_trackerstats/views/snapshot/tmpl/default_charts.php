@@ -17,12 +17,12 @@ $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=snapshot.display&format=json';
-JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 20);
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&amp;task=snapshot.display&amp;format=json';
+JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 50);
 ?>
 
 <h2>Total Open Issues by Status</h2>
-<div id="barchart" style="width:500px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
+<div id="barchart" style="width:600px; height:300px;" data-href="<?php echo $jsonSource; ?>"></div>
 <a href="<?php echo $jsonSource; ?>">Data</a>
 </br>
 
@@ -36,6 +36,7 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 20);
 			<option value="2">7 Days</option>
 			<option value="3">30 Days</option>
 		</select>
+		<input type="hidden" id="type" name="type" value="0">
 		<button class="button" id="dataUpdate" >Update Chart</button>
 </fieldset>
 </div>

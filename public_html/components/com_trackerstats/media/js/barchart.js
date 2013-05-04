@@ -8,7 +8,7 @@
 	$.JQPLOTBarchart = function(containerId, urlId, barDirection, stackSeries, barMargin) {
 		$.jqplot.config.enablePlugins = true;
 		// The url for our json data
-		var jsonurl = $("#" + urlId).attr("href");
+		var jsonurl = $("#" + urlId).attr("data-href");
 		var drawjqChart = function(url, tag) {
 			$.ajax({
 				url : url,

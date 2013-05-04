@@ -22,11 +22,11 @@ $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=wiki.display&format=json';
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&amp;task=wiki.display&amp;format=json';
 JHtml::_('barchart.barchart', 'barchart', 'barchart', true);
 ?>
 
 <h2>Wiki Activity</h2>
-<div id="barchart" style="width:700px; height:600px;" href="<?php echo $jsonSource; ?>"></div>
+<div id="barchart" style="width:700px; height:600px;" data-href="<?php echo $jsonSource; ?>"></div>
 
 

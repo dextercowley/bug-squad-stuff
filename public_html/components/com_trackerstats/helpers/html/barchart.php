@@ -74,16 +74,16 @@ abstract class JHtmlBarchart
 					// add the form variables to the URL
 					var period = $('#period').val();
 					var type = $('#type').val();
-					var href = $('#" . $urlId . "').attr('href');
+					var href = $('#" . $urlId . "').attr('data-href');
 					var startdate = $('#start_date').val();
 					var enddate = $('#end_date').val();
-					href = href.substr(0, href.indexOf('&format=json') + 12);
-					href = href + '&period=' + period + '&activity_type=' + type;
+					href = href.substr(0, href.indexOf('format=json') + 11);
+					href = href + '&amp;period=' + period + '&amp;activity_type=' + type;
 					if (period == 5)
 					{
-						href = href + '&startdate=' + startdate + '&enddate=' + enddate;
+						href = href + '&amp;startdate=' + startdate + '&amp;enddate=' + enddate;
 					}
-					$('#" . $urlId . "').attr('href', href);
+					$('#" . $urlId . "').attr('data-href', href);
 					var barChart = new $.JQPLOTBarchart('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 				});
 				});
@@ -154,9 +154,9 @@ abstract class JHtmlBarchart
 				// add the form variables to the URL
 				var period = $('#period').val();
 				var type = $('#type').val();
-				var href = $('#" . $urlId . "').attr('href');
+				var href = $('#" . $urlId . "').attr('data-href');
 				href = href + '&period=' + period + '&activity_type=' + type;
-				$('#" . $urlId . "').attr('href', href);
+				$('#" . $urlId . "').attr('data-href', href);
 				var barChart = new $.JQPLOTBarchartTest('" . $containerId . "','" . $urlId . "','" . $orientation . "','" . $stackSeries . "','" . $barMargin . "');
 	});
 	});

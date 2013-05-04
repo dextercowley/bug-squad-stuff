@@ -17,12 +17,12 @@ $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=openclose.display&format=json';
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&amp;task=openclose.display&amp;format=json';
 JHtml::_('barchart.barchart', 'barchart', 'barchart', false, false, 20);
 ?>
 
 <h2>Open and Close Activity</h2>
-<div id="barchart" style="width:700px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
+<div id="barchart" style="width:700px; height:300px;" data-href="<?php echo $jsonSource; ?>"></div>
 
 </br>
 <div>

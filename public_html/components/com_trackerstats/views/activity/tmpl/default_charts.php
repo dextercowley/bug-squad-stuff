@@ -22,12 +22,12 @@ $listOrder	= '';
 $listDirn	= '';
 $listFilter = '';
 // $jsonSource = $this->baseurl . "/components/com_trackerstats/json/getbarchartdata.php";
-$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&task=activity.display&format=json';
+$jsonSource = $this->baseurl . '/index.php?option=com_trackerstats&amp;task=activity.display&amp;format=json';
 JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 50);
 ?>
 
 <h2>Total Bug Squad Activity By Type</h2>
-<div id="barchart" style="width:600px; height:300px;" href="<?php echo $jsonSource; ?>"></div>
+<div id="barchart" style="width:600px; height:300px;" data-href="<?php echo $jsonSource; ?>"></div>
 
 </br>
 <h3>Chart Options</h3>

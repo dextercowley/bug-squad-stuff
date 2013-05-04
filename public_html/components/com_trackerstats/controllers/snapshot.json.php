@@ -50,9 +50,19 @@ class TrackerstatsControllerSnapshot extends JControllerLegacy
 			}
 		}
 
+		// Make sure we get zeros for missing values.
 		$dataByStatus = array_values($counts);
-		$data = array();
 		foreach ($dataByStatus as $dataForOneStatus)
+		{
+			foreach ($ticks as $day)
+			{
+				$dataForOneStatus[$day] = isset($dataForOneStatus[$day]) ? $dataForOneStatus[$day] : 0;
+			}
+			ksort($dataForOneStatus);
+			$filledDataByStatus[] = $dataForOneStatus;
+		}
+		$data = array();
+		foreach ($filledDataByStatus as $dataForOneStatus)
 		{
 			$data[] = array_values($dataForOneStatus);
 		}
