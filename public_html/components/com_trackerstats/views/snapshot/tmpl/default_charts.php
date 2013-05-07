@@ -23,7 +23,6 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 50);
 
 <h2>Total Open Issues by Status</h2>
 <div id="barchart" style="width:600px; height:300px;" data-href="<?php echo $jsonSource; ?>"></div>
-<a href="<?php echo $jsonSource; ?>">Data</a>
 </br>
 
 <h3>Chart Options</h3>
