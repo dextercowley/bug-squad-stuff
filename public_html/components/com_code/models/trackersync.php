@@ -266,7 +266,6 @@ class CodeModelTrackerSync extends JModelLegacy
 
 	public function sync()
 	{
-		$this->doStatusSnapshot(3);
 		$options['format'] = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
 		$options['text_file'] = 'gforge_sync.php';
 		$log = JLog::addLogger($options, JLog::INFO);
@@ -304,6 +303,7 @@ class CodeModelTrackerSync extends JModelLegacy
 //		$this->_populateTrackerFields($trackers[0]->tracker_id);
 //		$this->_syncTracker($trackers[0]);
 
+		$this->doStatusSnapshot(3);
 		return true;
 	}
 
