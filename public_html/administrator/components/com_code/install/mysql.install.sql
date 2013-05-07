@@ -292,3 +292,10 @@ CREATE TABLE `jos_code_users` (
   `jc_user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `eem_code_tracker_snapshots` (
+  `tracker_id` int(10) unsigned NOT NULL,
+  `snapshot_day` varchar(10) NOT NULL,
+  `modified_date` datetime NOT NULL,
+  `status_counts` varchar(512) NOT NULL,
+  PRIMARY KEY (`tracker_id`,`snapshot_day`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

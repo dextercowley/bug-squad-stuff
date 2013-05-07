@@ -196,8 +196,77 @@ class CodeModelTrackerSync extends JModelLegacy
 
 	}
 
+	/**
+	 * Gets counts of issues in tracker by status code and store in #__code_tracker_snapshots table by date
+	 */
+
+	public function doStatusSnapshot($tracker_id)
+	{
+		// First get snapshot
+		$cutoffDate = new DateTime("now");
+		$cutoffDate->sub(new DateInterval('P2Y'));
+		$today = new DateTime("now");
+		$query = $this->_db->getQuery(true);
+		$query->select('status_name, COUNT(*) as num_issues')
+			->from('#__code_tracker_issues')
+			->where('tracker_id = ' . (int) $tracker_id)
+			->where('DATE(modified_date) > ' . "'" . $cutoffDate->format('Y-m-d') . "'")
+			->where("DATE(close_date) = '0000-00-00'")
+			->group('status_name');
+		$this->_db->setQuery($query);
+		$dbArray = $this->_db->loadObjectList();
+		$jsonString = json_encode($dbArray);
+		$this->writeSnapshot($tracker_id, $today, $jsonString);
+	}
+
+	public function writeSnapshot($tracker_id, $date, $jsonString)
+	{
+		// Update or insert row to table
+		$query = $this->_db->getQuery(true);
+		$query->select('s.*');
+		$query->from('#__code_tracker_snapshots AS s');
+		$query->where('s.tracker_id = ' . (int) $tracker_id);
+		$query->where('s.snapshot_day = ' . $this->_db->quote($date->format('Y-m-d')));
+		$this->_db->setQuery($query);
+		try
+		{
+			$result = $this->_db->loadObject();
+		}
+		catch (Exception $e) {}
+		if ($result)
+		{
+			// Update row with new timestamp and json string
+			$query = $this->_db->getQuery(true);
+			$query->update('#__code_tracker_snapshots')
+				->set('modified_date = ' . $this->_db->quote($date->format('Y-m-d H:i:s')))
+				->set('status_counts = ' . $this->_db->quote($jsonString))
+				->where('tracker_id = ' . (int) $tracker_id)
+				->where('snapshot_day = ' . $this->_db->quote($date->format('Y-m-d')));
+		}
+		else
+		{
+			// Insert a new row
+			$query = $this->_db->getQuery(true);
+			$query->insert('#__code_tracker_snapshots')
+				->set('modified_date = ' . $this->_db->quote($date->format('Y-m-d H:i:s')))
+				->set('status_counts = ' . $this->_db->quote($jsonString))
+				->set('tracker_id = ' . (int) $tracker_id)
+				->set('snapshot_day = ' . $this->_db->quote($date->format('Y-m-d')));
+		}
+		$this->_db->setQuery($query);
+		try
+		{
+			$result = $this->_db->execute();
+		}
+		catch (Exception $e)
+		{
+			$test = $e;
+		}
+	}
+
 	public function sync()
 	{
+		$this->doStatusSnapshot(3);
 		$options['format'] = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
 		$options['text_file'] = 'gforge_sync.php';
 		$log = JLog::addLogger($options, JLog::INFO);
