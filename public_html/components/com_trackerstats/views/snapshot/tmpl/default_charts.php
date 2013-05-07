@@ -24,6 +24,9 @@ JHtml::_('barchart.barchart', 'barchart', 'barchart', false, true, 50);
 <h2>Total Open Issues by Status</h2>
 <div id="barchart" style="width:600px; height:300px;" data-href="<?php echo $jsonSource; ?>"></div>
 </br>
+<div>
+<p>Note: No data available before 23 April 2013.</p>
+</div>
 
 <h3>Chart Options</h3>
 
