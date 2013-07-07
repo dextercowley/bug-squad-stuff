@@ -39,14 +39,19 @@ class TrackerstatsModelReleasenotes extends JModelList
 		// Create a new query object.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
+		$subQuery = $db->getQuery(true);
+
+		$subQuery->select('issue_id, tag_id, tag')
+			->from('#__code_tracker_issue_tag_map')
+			->where('tag_id IN (39,1,29,44,36,85,11,40,17,82,13,6,35,22,27,21,23,20,49,34,19,25,43,94,88,125,112,114)')
+			->GROUP('issue_id, tag_id, tag');
 
 		// Select required fields from the categories.
 		$query->select("CASE WHEN ISNULL(m.tag) THEN 'None' ELSE m.tag END as category");
 		$query->select('i.title, i.jc_issue_id, i.close_date');
 
 		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
-		$query->join('LEFT', $db->qn('#__code_tracker_issue_tag_map') . ' AS m ON i.issue_id = m.issue_id' .
-				' AND m.tag_id IN (39,1,29,44,36,85,11,40,17,82,13,6,35,22,27,21,23,20,49,34,19,25,43,94,88,125,112,114)');
+		$query->join('LEFT', '(' . $subQuery->__toString() . ') AS m ON i.issue_id = m.issue_id');
 
 		$query->where('DATE(close_date) BETWEEN ' . $db->q(substr($this->state->params->get('start_date'),0,10)) . ' AND ' .
 				$db->q(substr($this->state->params->get('end_date'),0,10)));
