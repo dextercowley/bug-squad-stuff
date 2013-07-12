@@ -668,7 +668,8 @@ class CodeTableUser extends JTable
 		// Set the primary key.
 		$k = $this->_tbl_key;
 		$extended['user_id'] = $this->$k;
-
+		unset($extended['lastResetTime']);
+		unset($extended['resetCount']);
 		return (object) $extended;
 	}
 }
