@@ -30,6 +30,14 @@
 					description="COM_TRACKERSTATS_RELEASENOTES_FIELD_ENDDATE_DESC"
 					size="22"
 					filter="user_utc" />
+				<field name="include_issues" type="textarea"
+					label="COM_TRACKERSTATS_RELEASENOTES_FIELD_INCLUDE_ISSUES_LABEL"
+					description="COM_TRACKERSTATS_RELEASENOTES_FIELD_INCLUDE_ISSUES_DESC"
+					rows="5" columns="70" />
+				<field name="exclude_issues" type="textarea"
+					label="COM_TRACKERSTATS_RELEASENOTES_FIELD_EXCLUDE_ISSUES_LABEL"
+					description="COM_TRACKERSTATS_RELEASENOTES_FIELD_EXCLUDE_ISSUES_DESC"
+					rows="5" columns="70" />					
 		</fieldset>
 	</fields>
 </metadata>

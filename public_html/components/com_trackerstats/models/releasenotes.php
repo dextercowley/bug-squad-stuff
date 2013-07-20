@@ -40,6 +40,12 @@ class TrackerstatsModelReleasenotes extends JModelList
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
 		$subQuery = $db->getQuery(true);
+		$includeRaw = $this->state->params->get('include_issues', null);
+		$excludeRaw = $this->state->params->get('exclude_issues', null);
+		$includeArray = explode(',', $includeRaw);
+		$excludeArray = explode(',', $excludeRaw);
+		JArrayHelper::toInteger($includeArray);
+		JArrayHelper::toInteger($excludeArray);
 
 		$subQuery->select('issue_id, tag_id, tag')
 			->from('#__code_tracker_issue_tag_map')
@@ -53,9 +59,10 @@ class TrackerstatsModelReleasenotes extends JModelList
 		$query->from($db->qn('#__code_tracker_issues') . ' AS i');
 		$query->join('LEFT', '(' . $subQuery->__toString() . ') AS m ON i.issue_id = m.issue_id');
 
-		$query->where('DATE(close_date) BETWEEN ' . $db->q(substr($this->state->params->get('start_date'),0,10)) . ' AND ' .
-				$db->q(substr($this->state->params->get('end_date'),0,10)));
+		$query->where('((DATE(close_date) BETWEEN ' . $db->q(substr($this->state->params->get('start_date'),0,10)) . ' AND ' .
+				$db->q(substr($this->state->params->get('end_date'),0,10)) . ') OR (i.jc_issue_id IN (' . implode(',', $includeArray) . ')))');
 		$query->where("status_name LIKE '%Fixed in SVN%'");
+		$query->where('i.jc_issue_id NOT IN (' . implode(',', $excludeArray) . ')');
 
 		if ($this->state->get('list.filter'))
 		{
