@@ -360,14 +360,17 @@ class GForge
 	{
 		try {
 			// Attempt to get a list of tracker item data by tracker id.
-			// Get in batches of 5000 to avoid errors
-			$items = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 0);
-			$items1 = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 3000);
-			$items2 = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 5000, 6000);
-			$items = array_merge($items, $items1);
-			$items = array_merge($items, $items2);
-			// For developing, just get the last 200 items
-// 			$items = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, 3000, 6200);
+			// Get in batches to avoid errors
+			$increment = 1000;
+			$limit = 1 + (int) (20000 / $increment);
+			$itemArray = array();
+			$items = array();
+			for ($i = 0; $i < 20; $i++)
+			{
+				$start = $i * $increment;
+				$itemArray[$i] = $this->client->getTrackerItemsShort($this->sessionhash, $trackerId, -1, -1, $increment, $start);
+				$items = array_merge($items, $itemArray[$i]);
+			}
 			return $items;
 		}
 		catch (SoapFault $e)
